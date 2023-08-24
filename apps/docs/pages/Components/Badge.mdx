@@ -1,0 +1,76 @@
+# Badge
+
+Really reusable badge element
+
+import { Badge } from 'ui';
+
+export function BadgeVariants() {
+  return (
+    <div className='flex gap-3 '>
+      <Badge variant='default' children={'default'} />
+      <Badge variant='secondary' children={'secondary'} />
+      <Badge variant='destructive' children={'destructive'} />
+      <Badge variant='outline' children={'outline'} />
+      <Badge variant='round' children={'round'} />
+    </div>
+  );
+}
+
+## Variants
+
+<div className='mt-8'>
+  <div className='flex justify-center px-3 '>
+    <BadgeVariants />
+  </div>
+  ```jsx copy filename="variants"
+    <Badge variant='default' children={'default'} />
+    <Badge variant='secondary' children={'secondary'} />
+    <Badge variant='destructive' children={'destructive'} />
+    <Badge variant='outline' children={'outline'} />
+    <Badge variant='round' children={'round'} />
+  ```
+</div>
+
+### API Reference
+
+<div class='flex flex-col'>
+  <div class='overflow-x-auto sm:-mx-6 lg:-mx-8'>
+    <div class='inline-block min-w-full py-2 sm:px-6 lg:px-8'>
+      <div class='overflow-hidden rounded-xl border'>
+        <table class='min-w-full text-center text-sm font-light '>
+          <thead class='border-b bg-neutral-800 font-medium text-primary dark:border-neutral-500 dark:bg-secondary-foreground/5'>
+            <tr>
+              <th scope='col' class=' px-6 py-4'>
+                Prop
+              </th>
+              <th scope='col' class=' px-6 py-4'>
+                Type
+              </th>
+              <th scope='col' class=' px-6 py-4'>
+                Default
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class='border-b dark:border-neutral-500'>
+              <td class='whitespace-nowrap text-sky-600 px-6 py-4 font-medium'>
+                `size`
+              </td>
+              <td class='whitespace-nowrap px-6 py-4'>`"sm" | "md" | "lg"`</td>
+              <td class='whitespace-nowrap px-6 py-4'>`"md"`</td>
+            </tr>
+            <tr class=' dark:border-neutral-500'>
+              <td class='whitespace-nowrap text-sky-600 px-6 py-4 font-medium'>
+                `variant`
+              </td>
+              <td class='whitespace-nowrap px-6 py-4 '>
+                `"default" | "secondary" | "destructive" | "outline" | "round" `
+              </td>
+              <td class='whitespace-nowrap  px-6 py-4'>`"default"`</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

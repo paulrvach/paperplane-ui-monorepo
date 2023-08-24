@@ -1,11 +1,8 @@
-import { VariantProps, cva } from 'class-variance-authority';
 import React from 'react';
-
 import { Button } from './Button';
-
 import { cn } from '../utils';
 
-const ProjectCard = React.forwardRef<
+const ArticleCard = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
@@ -15,16 +12,16 @@ const ProjectCard = React.forwardRef<
     {...props}
   />
 ));
-ProjectCard.displayName = 'Card';
+ArticleCard.displayName = 'Card';
 
-const ProjectTags = React.forwardRef<
+const ArticleCardTags = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
   <div ref={ref} className={cn('flex gap-2 py-2', className)} {...props} />
 ));
 
-const ProjectTitle = React.forwardRef<
+const ArticleCardTitle = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
@@ -38,14 +35,14 @@ const ProjectTitle = React.forwardRef<
   />
 ));
 
-const ProjectDescription = React.forwardRef<
+const ArticleCardDescription = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
   <p className={cn('text-xs', className)} ref={ref} {...props} />
 ));
 
-export interface ProjectImageProps
+export interface ArticleCardImageProps
   extends React.HTMLAttributes<HTMLDivElement> {
   src: string;
   alt: string;
@@ -53,7 +50,7 @@ export interface ProjectImageProps
   buttonText: string
 }
 
-const ProjectImage = React.forwardRef<HTMLDivElement, ProjectImageProps>(
+const ArticleCardImage = React.forwardRef<HTMLDivElement, ArticleCardImageProps>(
   ({ src, alt, href, className, buttonText = "Website",...props }, ref) => {
     const [demo, setDemo] = React.useState(false);
 
@@ -91,9 +88,9 @@ const ProjectImage = React.forwardRef<HTMLDivElement, ProjectImageProps>(
 );
 
 export {
-  ProjectCard,
-  ProjectDescription,
-  ProjectImage,
-  ProjectTags,
-  ProjectTitle,
+  ArticleCard,
+  ArticleCardDescription,
+  ArticleCardImage,
+  ArticleCardTags,
+  ArticleCardTitle,
 };
