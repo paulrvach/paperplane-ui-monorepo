@@ -1,10 +1,12 @@
-import { Button, Header } from "ui";
+'use client'
+
+import '../../docs/styles.css'
+import { Button } from 'ui';
 
 export default function Page(): JSX.Element {
   return (
-    <>
-      <Header text="Web" />
-      <Button />
-    </>
+    <div className='w-screen justify-center'>
+      <Button>Button</Button>
+    </div>
   );
 }

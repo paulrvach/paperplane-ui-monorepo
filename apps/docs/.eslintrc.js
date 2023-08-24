@@ -1,3 +1,3 @@
 module.exports = {
-  extends: ["custom/next"],
+  "extends": ["next/babel","next/core-web-vitals"],
 };
