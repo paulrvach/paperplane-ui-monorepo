@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
-
 import { cn } from '../utils';
+import gsap from 'gsap';
 
 const badgeVariants = cva(
   'inline-flex items-center px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 cursor-pointer',
@@ -31,11 +31,17 @@ export interface BadgeProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof badgeVariants> {}
 
-function Badge({ className, variant, ...props }: BadgeProps) {
-  return (
-    <div className={cn(badgeVariants({ variant }), className)} {...props} />
-  );
-}
+const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
+  ({ className, variant, ...props }, ref) => {
+    return (
+      <div
+        className={cn(badgeVariants({ variant }), className)}
+        ref={ref}
+        {...props}
+      />
+    );
+  }
+);
 
 export interface BadgesProps extends React.HTMLAttributes<HTMLDivElement> {
   length: number;
@@ -43,48 +49,53 @@ export interface BadgesProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const Badges = React.forwardRef<HTMLDivElement, BadgesProps>(
   ({ children, className, length, ...props }, ref) => {
-    const [shortend, setShortend] = React.useState<
-      React.ReactNode[] | React.ReactNode
-    >(children);
+    const [opened, setOpened] = React.useState(false);
+    const [shortened, setShortened] = React.useState<React.ReactNode[]>(
+      React.Children.toArray(children)
+    );
+
+    const elements = React.useRef<HTMLDivElement[]>([]);
+
+    const animateChildren = () => {
+      const animations = gsap.timeline({
+        defaults: {
+          duration: 0.1,
+          scaleY: 0.1,
+        },
+      });
+      elements.current.slice(length).forEach((element, index) => {
+        animations.from(element, {
+          stagger: 0.3,
+          opacity: 0,
+          y: '+=15',
+          ease: 'circ',
+        });
+      });
+    };
 
     // iterates through the children and displays all of them plus show less badge
     const handleShowMore = () => {
-      if (Array.isArray(children))
-        setShortend([
-          ...children,
-          <Badge
-            children='Show Less'
-            variant={'outline'}
-            onClick={shortenChildren}
-          />,
-        ]);
+      if (Array.isArray(children)) setShortened([...children]);
+      setOpened(true);
     };
 
-    // iterate through the len
     const shortenChildren = () => {
       if (Array.isArray(children) && children.length > length) {
-        const reactNodeArray = [];
-        // iterate to the length of the children
-        for (let i = 0; i < length; i++) {
-          reactNodeArray.push(children[i]);
-        }
-        // render to the dom only those badges + show more badge
-        setShortend([
-          ...reactNodeArray,
-          <Badge
-            children='Show More'
-            variant={'outline'}
-            onClick={handleShowMore}
-          />,
-        ]);
+        const reactNodeArray = children.slice(0, length);
+        setShortened([...reactNodeArray]);
       } else if (Array.isArray(children) && children.length < length) {
-        setShortend(children);
+        setShortened(React.Children.toArray(children));
       }
+      setOpened(false);
     };
 
     React.useEffect(() => {
       shortenChildren();
     }, [children, length]);
+
+    React.useEffect(() => {
+      opened && animateChildren();
+    }, [shortened]);
 
     return (
       <div
@@ -92,7 +103,24 @@ const Badges = React.forwardRef<HTMLDivElement, BadgesProps>(
         ref={ref}
         className={cn(className, 'flex gap-2 flex-wrap')}
       >
-        {shortend}
+        {shortened.map((node, index) => (
+          <div key={index} ref={(el) => (elements.current[index] = el)}>
+            {node}
+          </div>
+        ))}
+        {shortened.length === React.Children.toArray(children).length ? (
+          <Badge
+            children='Show Less'
+            variant={'outline'}
+            onClick={shortenChildren}
+          />
+        ) : (
+          <Badge
+            children='Show More'
+            variant={'outline'}
+            onClick={handleShowMore}
+          />
+        )}
       </div>
     );
   }
