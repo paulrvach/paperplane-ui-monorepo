@@ -1,0 +1,47 @@
+import React from 'react';
+import { Tabs, Tab } from 'nextra/components';
+import CustomTable from '../../components/tailwind-table.tsx';
+
+import { CardShowcase } from 'ui';
+import { ExampleCard } from 'ui/examples/Cards/article-card';
+import { Pre, Code } from 'nextra/components'
+
+# Card Showcase
+
+An animatied wrapper component to give life to your cards.
+
+<Tabs items={['preview', 'code']}>
+  <Tab>
+    <CardShowcase cardWidth={'lg'} className="p-4">
+    <ExampleCard/>
+    <ExampleCard/>
+    <ExampleCard/>
+    <ExampleCard/>
+    <ExampleCard/>
+    <ExampleCard/>
+    </CardShowcase>
+  </Tab>
+  <Tab>
+  ```tsx copy
+    <CardShowcase>
+      <ExampleCard/>
+      <ExampleCard/>
+      <ExampleCard/>
+      <ExampleCard/>
+      <ExampleCard/>
+      <ExampleCard/>
+    </CardShowcase>
+  ```
+  </Tab>
+</Tabs>
+
+## Variants
+
+## API Refernce
+
+### Card Showcase
+
+<Pre>
+  <Code><div>asd</div></Code>
+
+</Pre>

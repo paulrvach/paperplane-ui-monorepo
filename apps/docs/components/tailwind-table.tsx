@@ -15,9 +15,9 @@ const CustomTable = ({ data }) => {
     <div className='flex flex-col'>
       <div className='overflow-x-auto sm:-mx-6 lg:-mx-8'>
         <div className='inline-block min-w-full py-2 sm:px-6 lg:px-8'>
-          <div className='overflow-hidden rounded-xl border'>
-            <table className='min-w-full text-center text-sm font-light'>
-              <thead className='border-b bg-neutral-800 font-medium text-primary dark:border-neutral-500 dark:bg-secondary-foreground/5'>
+        <div className='overflow-hidden rounded-xl border border-border'>
+            <table className='min-w-full text-center text-sm font-light table-fixed'>
+            <thead className='border-b border-border  font-medium text-primary dark:bg-secondary-foreground/5'>
                 <tr>
                   <th scope='col' className='px-6 py-4'>
                     Prop
@@ -35,19 +35,19 @@ const CustomTable = ({ data }) => {
                   <tr
                     key={index}
                     className={
-                      index % 2 === 0
-                        ? 'border-b dark:border-neutral-500'
-                        : 'dark:border-neutral-500'
+                      index === data.length - 2
+                        ? 'border-b  border-border'
+                        : ''
                     }
                   >
                     <td className='whitespace-nowrap text-sky-600 px-6 py-4 font-medium'>
-                      {item.propName}
+                     <code className='border rounded-lg bg-secondary-foreground/5 p-1 border-border text-xs'>{item.propName}</code>
                     </td>
                     <td className='whitespace-nowrap px-6 py-4'>
-                      {item.propType}
+                      <code className='border rounded-lg bg-secondary-foreground/5 p-1 border-border text-xs'>{item.propType}</code>
                     </td>
                     <td className='whitespace-nowrap px-6 py-4'>
-                      {item.propDefault}
+                      <code className='border rounded-lg bg-secondary-foreground/5 p-1 border-border text-xs'>{item.propDefault}</code>
                     </td>
                   </tr>
                 ))}

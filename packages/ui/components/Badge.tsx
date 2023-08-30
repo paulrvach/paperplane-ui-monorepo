@@ -1,5 +1,6 @@
-import * as React from 'react';
+import React, { forwardRef, useState, useEffect, useRef } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
+import { ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons';
 import { cn } from '../utils';
 import gsap from 'gsap';
 
@@ -45,16 +46,14 @@ const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
 
 export interface BadgesProps extends React.HTMLAttributes<HTMLDivElement> {
   length: number;
+  stagger?: number;
 }
 
-const Badges = React.forwardRef<HTMLDivElement, BadgesProps>(
-  ({ children, className, length, ...props }, ref) => {
-    const [opened, setOpened] = React.useState(false);
-    const [shortened, setShortened] = React.useState<React.ReactNode[]>(
-      React.Children.toArray(children)
-    );
-
-    const elements = React.useRef<HTMLDivElement[]>([]);
+const Badges = forwardRef<HTMLDivElement, BadgesProps>(
+  ({ children, className, length, stagger, ...props }, ref) => {
+    const [opened, setOpened] = useState(false);
+    const [shortened, setShortened] = useState<React.ReactNode[]>([]);
+    const elements = useRef<HTMLDivElement[] >([]);
 
     const animateChildren = () => {
       const animations = gsap.timeline({
@@ -65,7 +64,7 @@ const Badges = React.forwardRef<HTMLDivElement, BadgesProps>(
       });
       elements.current.slice(length).forEach((element, index) => {
         animations.from(element, {
-          stagger: 0.3,
+          stagger: stagger,
           opacity: 0,
           y: '+=15',
           ease: 'circ',
@@ -73,53 +72,54 @@ const Badges = React.forwardRef<HTMLDivElement, BadgesProps>(
       });
     };
 
-    // iterates through the children and displays all of them plus show less badge
     const handleShowMore = () => {
-      if (Array.isArray(children)) setShortened([...children]);
+      setShortened(React.Children.toArray(children));
       setOpened(true);
     };
 
     const shortenChildren = () => {
-      if (Array.isArray(children) && children.length > length) {
-        const reactNodeArray = children.slice(0, length);
-        setShortened([...reactNodeArray]);
-      } else if (Array.isArray(children) && children.length < length) {
-        setShortened(React.Children.toArray(children));
+      const reactNodeArray = React.Children.toArray(children);
+      if (reactNodeArray.length > length) {
+        setShortened(reactNodeArray.slice(0, length));
+      } else {
+        setShortened(reactNodeArray);
       }
       setOpened(false);
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
       shortenChildren();
     }, [children, length]);
 
-    React.useEffect(() => {
-      opened && animateChildren();
-    }, [shortened]);
+    useEffect(() => {
+      if (opened) {
+        animateChildren();
+      }
+    }, [opened]);
 
     return (
       <div
         {...props}
         ref={ref}
-        className={cn(className, 'flex gap-2 flex-wrap')}
+        className={cn(className, 'flex gap-1 flex-wrap')}
       >
         {shortened.map((node, index) => (
-          <div key={index} ref={(el) => (elements.current[index] = el)}>
+          <div key={index} ref={(el) => (elements.current[index] = el as never)}>
             {node}
           </div>
         ))}
         {shortened.length === React.Children.toArray(children).length ? (
-          <Badge
-            children='Show Less'
-            variant={'outline'}
-            onClick={shortenChildren}
-          />
+          shortened.length <= length ? null : (
+            <Badge variant={'outline'} onClick={shortenChildren}   className="relative group"
+            >
+              {' '}
+              {'Show Less'} <ChevronUpIcon className='w-4 h-4 transform group-hover:rotate-180 transition duration-300'/>
+            </Badge>
+          )
         ) : (
-          <Badge
-            children='Show More'
-            variant={'outline'}
-            onClick={handleShowMore}
-          />
+          <Badge variant={'outline'} onClick={handleShowMore} className='relative group'>
+            {'Show More'}<ChevronDownIcon className='w-4 h-4'/>
+          </Badge>
         )}
       </div>
     );
