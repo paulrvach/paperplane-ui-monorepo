@@ -5,7 +5,7 @@ import { Theme } from '@radix-ui/themes';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <Theme>
+    <Theme accentColor='amber'>
       <Component {...pageProps} />
     </Theme>
   );

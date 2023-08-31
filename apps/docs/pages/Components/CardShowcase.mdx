@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tabs, Tab } from 'nextra/components';
+import { Tabs } from '@radix-ui/themes'
 import CustomTable from '../../components/tailwind-table.tsx';
 
 import { CardShowcase } from 'ui';
@@ -10,30 +10,39 @@ import { Pre, Code } from 'nextra/components'
 
 An animatied wrapper component to give life to your cards.
 
-<Tabs items={['preview', 'code']}>
-  <Tab>
-    <CardShowcase cardWidth={'lg'} className="p-4">
-    <ExampleCard/>
-    <ExampleCard/>
-    <ExampleCard/>
-    <ExampleCard/>
-    <ExampleCard/>
-    <ExampleCard/>
-    </CardShowcase>
-  </Tab>
-  <Tab>
-  ```tsx copy
-    <CardShowcase>
-      <ExampleCard/>
-      <ExampleCard/>
-      <ExampleCard/>
-      <ExampleCard/>
-      <ExampleCard/>
-      <ExampleCard/>
-    </CardShowcase>
-  ```
-  </Tab>
-</Tabs>
+
+<Tabs.Root defaultValue="preview">
+  <Tabs.List>
+    <Tabs.Trigger value="preview">Preview</Tabs.Trigger>
+    <Tabs.Trigger value="code">Code</Tabs.Trigger>
+  </Tabs.List>
+  <div className="px-4 pt-3 pb-2">
+    <Tabs.Content value="preview">
+      <CardShowcase cardWidth={'lg'} className="p-4">
+        <ExampleCard/>
+        <ExampleCard/>
+        <ExampleCard/>
+        <ExampleCard/>
+        <ExampleCard/>
+        <ExampleCard/>
+      </CardShowcase>
+    </Tabs.Content>
+
+    <Tabs.Content value="code">
+      ```jsx copy 
+      <CardShowcase cardWidth={'lg'} className="p-4">
+        <ExampleCard/>
+        <ExampleCard/>
+        <ExampleCard/>
+        <ExampleCard/>
+        <ExampleCard/>
+        <ExampleCard/>
+      </CardShowcase>
+      ````
+    </Tabs.Content>
+    </div>
+</Tabs.Root>
+
 
 ## Variants
 

@@ -58,13 +58,12 @@ const Badges = forwardRef<HTMLDivElement, BadgesProps>(
     const animateChildren = () => {
       const animations = gsap.timeline({
         defaults: {
-          duration: 0.1,
+          duration: stagger,
           scaleY: 0.1,
         },
       });
       elements.current.slice(length).forEach((element, index) => {
         animations.from(element, {
-          stagger: stagger,
           opacity: 0,
           y: '+=15',
           ease: 'circ',
