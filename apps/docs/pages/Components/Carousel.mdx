@@ -5,7 +5,7 @@ import { Steps } from 'nextra/components'
 import { CardShowcase } from 'ui';
 import { ExampleCard } from 'ui/examples/Cards/article-card';
 import PropsCard from '../../components/props-card.tsx';
-import CardShowcaseVariants from 'ui/examples/card-showcase-variants'
+import CardShowcaseVariants from 'ui/examples/carousel-variants'
 
 # Card Showcase
 
@@ -15,7 +15,7 @@ An animatied wrapper component to give life to your cards.
 
 ## Components
 
-### CardShowcase
+### Carousel
 
 <Tabs.Root defaultValue="preview">
   <Tabs.List>
@@ -29,14 +29,14 @@ An animatied wrapper component to give life to your cards.
 
     <Tabs.Content value="code">
       ```jsx copy 
-      <CardShowcase cardWidth={'lg'} className="p-4">
+      <Carousel cardWidth={'lg'} className="p-4">
         <ExampleCard/>
         <ExampleCard/>
         <ExampleCard/>
         <ExampleCard/>
         <ExampleCard/>
         <ExampleCard/>
-      </CardShowcase>
+      </Carousel>
       ````
     </Tabs.Content>
     </div>
@@ -47,7 +47,7 @@ An animatied wrapper component to give life to your cards.
 
 ## API Reference
 
-### CardShowcase
+### Carousel
 
 <PropsCard
   name='scrub'
@@ -102,7 +102,7 @@ An animatied wrapper component to give life to your cards.
 
                 // applicable variants gap, how many cards fit on screen?, scrub,
 
-                const cardShowcaseVariants = cva(
+                const carouselVariants = cva(
                   "inline-flex flex scroll-smooth gap-3 w-full",
                   {
                     variants: {
@@ -117,7 +117,7 @@ An animatied wrapper component to give life to your cards.
                   }
                 );
 
-                const cardShowcaseItemVariants = cva("box-content flex flex-none snap-always", {
+                const carouselItemVariants = cva("box-content flex flex-none snap-always", {
                   variants: {
                     align: {
                       start: "snap-start",
@@ -136,15 +136,15 @@ An animatied wrapper component to give life to your cards.
                   },
                 });
 
-                export interface CardShowcaseProps
+                export interface CarouselProps
                   extends React.HtmlHTMLAttributes<HTMLDivElement>,
-                    VariantProps<typeof cardShowcaseVariants>,
-                    VariantProps<typeof cardShowcaseItemVariants> {
+                    VariantProps<typeof carouselVariants>,
+                    VariantProps<typeof carouselItemVariants> {
                   href?: string;
                   scrub?: boolean;
                 }
 
-                const CardShowcase: React.FC<CardShowcaseProps> = ({
+                const Carousel: React.FC<CarouselProps> = ({
                   className,
                   children,
                   direction,
@@ -157,7 +157,7 @@ An animatied wrapper component to give life to your cards.
                   const elements = useRef<HTMLDivElement[]>([]);
                   const [currentSlide, setCurrentSlide] = React.useState<number>(0);
 
-                  const combinedClassName = cn(cardShowcaseVariants({ direction, className }));
+                  const combinedClassName = cn(carouselVariants({ direction, className }));
 
                   const handlePreviousClick = () => {
                     if (currentSlide > 0) {
@@ -242,7 +242,7 @@ An animatied wrapper component to give life to your cards.
                           <div
                             key={index}
                             id={`slide${index}`}
-                            className={cn(cardShowcaseItemVariants({ align, cardWidth }))}
+                            className={cn(carouselItemVariants({ align, cardWidth }))}
                             ref={(ele) => (elements.current[index] = ele as never)}
                           >
                             {child}
@@ -252,9 +252,9 @@ An animatied wrapper component to give life to your cards.
                     </div>
                   );
                 };
-                CardShowcase.displayName = "CardShowcase";
+                Carousel.displayName = "Carousel";
 
-                export { CardShowcase, cardShowcaseVariants };
+                export { Carousel, carouselVariants, carouselItemVariants };
 				```
 
 				</CodeMinimizer>
@@ -278,16 +278,16 @@ An animatied wrapper component to give life to your cards.
 ## Usage
 
 ```tsx copy
-import { CardShowcase } from "@paperplane-ui"
+import { Carousel } from "@paperplane-ui"
 ```
 
 ```tsx copy
-<CardShowcase cardWidth={width} className="p-4" align={align} scrub={false}>
+<Carousel cardWidth={width} className="p-4" align={align} scrub={false}>
   <ExampleCard />
   <ExampleCard />
   <ExampleCard />
   <ExampleCard />
   <ExampleCard />
   <ExampleCard />
-</CardShowcase>
+</Carousel>
 ```

@@ -7,7 +7,7 @@ import ScrollTrigger from "gsap/dist/ScrollTrigger";
 
 // applicable variants gap, how many cards fit on screen?, scrub,
 
-const cardShowcaseVariants = cva(
+const carouselVariants = cva(
   "inline-flex flex scroll-smooth gap-3 w-full",
   {
     variants: {
@@ -22,7 +22,7 @@ const cardShowcaseVariants = cva(
   }
 );
 
-const cardShowcaseItemVariants = cva("box-content flex flex-none snap-always", {
+const carouselItemVariants = cva("box-content flex flex-none snap-always", {
   variants: {
     align: {
       start: "snap-start",
@@ -41,15 +41,15 @@ const cardShowcaseItemVariants = cva("box-content flex flex-none snap-always", {
   },
 });
 
-export interface CardShowcaseProps
+export interface CarouselProps
   extends React.HtmlHTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof cardShowcaseVariants>,
-    VariantProps<typeof cardShowcaseItemVariants> {
+    VariantProps<typeof carouselVariants>,
+    VariantProps<typeof carouselItemVariants> {
   href?: string;
   scrub?: boolean;
 }
 
-const CardShowcase: React.FC<CardShowcaseProps> = ({
+const Carousel: React.FC<CarouselProps> = ({
   className,
   children,
   direction,
@@ -62,7 +62,7 @@ const CardShowcase: React.FC<CardShowcaseProps> = ({
   const elements = useRef<HTMLDivElement[]>([]);
   const [currentSlide, setCurrentSlide] = React.useState<number>(0);
 
-  const combinedClassName = cn(cardShowcaseVariants({ direction, className }));
+  const combinedClassName = cn(carouselVariants({ direction, className }));
 
   const handlePreviousClick = () => {
     if (currentSlide > 0) {
@@ -147,7 +147,7 @@ const CardShowcase: React.FC<CardShowcaseProps> = ({
           <div
             key={index}
             id={`slide${index}`}
-            className={cn(cardShowcaseItemVariants({ align, cardWidth }))}
+            className={cn(carouselItemVariants({ align, cardWidth }))}
             ref={(ele) => (elements.current[index] = ele as never)}
           >
             {child}
@@ -157,6 +157,6 @@ const CardShowcase: React.FC<CardShowcaseProps> = ({
     </div>
   );
 };
-CardShowcase.displayName = "CardShowcase";
+Carousel.displayName = "Carousel";
 
-export { CardShowcase, cardShowcaseVariants };
+export { Carousel, carouselVariants, carouselItemVariants };

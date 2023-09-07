@@ -1,0 +1,293 @@
+import React, { useState } from "react";
+import { Steps } from "nextra/components";
+import { Tabs } from "@radix-ui/themes";
+import PropsCard from "../../../components/props-card.tsx";
+import CodeMinimizer from "ui/examples/controls/CodeMinimizer";
+import ExampleCard from "ui/examples/cards/article-card";
+
+# Card
+
+The Card component is a versatile React component designed to create customizable card-based UI elements. It provides a structured way to create cards with headers, titles, descriptions, content, and footers, making it suitable for various application interfaces.
+
+<div className="w-full h-8" />
+
+<Tabs.Root defaultValue="preview">
+  <Tabs.List>
+    <Tabs.Trigger value="preview">Preview</Tabs.Trigger>
+    <Tabs.Trigger value="code">Code</Tabs.Trigger>
+  </Tabs.List>
+  <div className="px-4 pt-3 pb-2">
+    <Tabs.Content value="preview" className="flex p-4 justify-center items-center">
+    <div className='w-64 h-64'> 
+      <ExampleCard />
+      </div>
+    </Tabs.Content>
+
+    <Tabs.Content value="code">
+      ```jsx copy
+      import { Badge, ArticleCard } from "@paperplane-ui";
+
+      const ExampleCard = () => {
+        return (
+          <ArticleCard >
+            <ArticleCard.Image
+              src="https://images.unsplash.com/photo-1682686581740-2c5f76eb86d1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80"
+              alt="img"
+              buttonText="website"
+              href="https://images.unsplash.com/photo-1682686581740-2c5f76eb86d1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80"
+            />
+            <ArticleCard.Tags>
+              <Badge children="badge" className=""/>
+              <Badge children="badge" className=""/>
+              <Badge children="badge" className=""/>
+            </ArticleCard.Tags>
+            <ArticleCard.Title children="Article Title" />
+            <ArticleCard.Description children="Article Description" />
+          </ArticleCard>
+        );
+      };
+
+      export default ExampleCard
+      ````
+    </Tabs.Content>
+    </div>
+
+</Tabs.Root>
+
+<div className="w-full h-8" />
+
+## API Reference
+
+### ArticleCard <p className="text-sm font-normal inline-block">_(component wrapper)_</p>
+
+<PropsCard
+  name="children"
+  description="Place compound components inside ArticleCard card wrapper."
+  type="ReactNode(s)"
+/>
+<PropsCard
+  name="ref"
+  description="Forwared Ref Attribute"
+  type="React.ForwardedRef<HTMLDivElement>"
+/>
+
+### ArticleCard.Tags
+
+<PropsCard
+  name="children"
+  description="Place compound components inside ArticleCard.Tags wrapper."
+  type="ReactNode(s)"
+/>
+<PropsCard
+  name="ref"
+  description="Forwared Ref Attribute"
+  type="React.ForwardedRef<HTMLDivElement>"
+/>
+
+### ArticleCard.Title
+
+<PropsCard
+  name="ref"
+  description="Forwared Ref Attribute"
+  type="React.ForwardedRef<HTMLDivElement>"
+/>
+
+### ArticleCard.Description
+
+<PropsCard
+  name="ref"
+  description="Forwared Ref Attribute"
+  type="React.ForwardedRef<HTMLDivElement>"
+/>
+
+### ArticleCard.Image
+
+<PropsCard
+  name="ref"
+  description="Forwared Ref Attribute"
+  type="React.ForwardedRef<HTMLDivElement>"
+/>
+<PropsCard
+  name="buttonText"
+  description="Text that appears for navigation button. Leave blank to disable."
+  type="React.ForwardedRef<HTMLDivElement>"
+/>
+<PropsCard
+  name="asChild"
+  description={ <span>Either pass image attributes as a props pass as child component. Go to <a href="https://www.radix-ui.com/primitives/docs/utilities/slot">Radix Docs</a> for more details</span>}
+  type="boolean"
+/>
+
+<div className="w-full h-8" />
+
+## Installation
+
+<Tabs.Root defaultValue="Manual">
+  <Tabs.List>
+    <Tabs.Trigger value="Manual">Manual</Tabs.Trigger>
+    <Tabs.Trigger value="CLI">CLI</Tabs.Trigger>
+  </Tabs.List>
+
+  <div className="px-4 pt-3 pb-2">
+    <Tabs.Content value="Manual">
+      <Steps>
+				### Step 1
+				 
+				Install dependiencies 
+
+				```bash copy
+				npm install @radix-ui/react-slot
+				```
+				 
+				### Step 2
+				 
+				Copy and paste code into your project
+				<CodeMinimizer>
+				```tsx copy
+                import { cn } from "../utils";
+                import { Slot } from '@radix-ui/react-slot';
+
+                import React, { forwardRef, HTMLAttributes } from "react";
+
+                const Tags = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
+                  ({ className, ...props }, ref) => (
+                    <div
+                      ref={ref}
+                      className={cn("flex gap-2 py-2 flex-wrap", className)}
+                      {...props}
+                    />
+                  )
+                );
+
+                const Title = forwardRef<HTMLDivElement, HTMLAttributes<HTMLParagraphElement>>(
+                  ({ className, ...props }, ref) => (
+                    <h3
+                      ref={ref}
+                      className={cn(
+                        "text-lg text-primary font-semibold leading-none tracking-tight my-2",
+                        className
+                      )}
+                      {...props}
+                    />
+                  )
+                );
+
+                const Description = forwardRef<
+                  HTMLDivElement,
+                  HTMLAttributes<HTMLParagraphElement>
+                >(({ className, ...props }, ref) => (
+                  <p className={cn("text-xs", className)} ref={ref} {...props} />
+                ));
+
+                interface ImageProps extends HTMLAttributes<HTMLImageElement> {
+                  src: string;
+                  alt: string;
+                  href?: string;
+                  buttonText?: string;
+                  asChild: boolean
+                }
+
+                const Image = forwardRef<HTMLDivElement, ImageProps>(
+                  ({ asChild, href, className, buttonText , ...props }, ref) => {
+                    const [demo, setDemo] = React.useState(false);
+                    const Comp = asChild ? Slot : 'img';
+
+                    const onHoverHandler = () => {
+                      setDemo(true);
+                    };
+
+                    const onLeaveHandler = () => {
+                      setDemo(false);
+                    };
+
+                    return (
+                      <div
+                        className={cn(
+                          "relative rounded-md transition-all overflow-hidden duration-200 hover:-translate-y-2 select-none ",
+                          className
+                        )}
+                        onMouseOver={onHoverHandler}
+                        onMouseLeave={onLeaveHandler}
+                        ref={ref}
+                      >
+                        <Comp
+                          className="shadow hover:shadow-lg select-none"
+                          {...props}
+                        />
+                        {demo && href &&(
+                          <a
+                            href={href}
+                            className="absolute bottom-3 transition-all duration-100 right-1"
+                          >
+                            <button className="inline-flex items-center justify-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-8 rounded-md px-3 text-xs">{buttonText}</button>
+                          </a>
+                        )}
+                      </div>
+                    );
+                  }
+                );
+
+                interface ArticleCardProps extends HTMLAttributes<HTMLDivElement> {}
+
+                interface ArticleCardType
+                  extends React.ForwardRefExoticComponent<
+                    ArticleCardProps & React.RefAttributes<HTMLDivElement>
+                  > {
+                  Tags: typeof Tags;
+                  Title: typeof Title;
+                  Description: typeof Description;
+                  Image: typeof Image;
+                }
+
+                const ArticleCard = forwardRef<HTMLDivElement, ArticleCardProps>(
+                  ({ className, children, ...props }, ref) => (
+                    <div
+                      ref={ref}
+                      className={cn("text-card-foreground w-full", className)}
+                      {...props}
+                    >
+                      {children}
+                    </div>
+                  )
+                ) as ArticleCardType;
+
+                ArticleCard.Tags = Tags;
+                ArticleCard.Title = Title;
+                ArticleCard.Description = Description;
+                ArticleCard.Image = Image;
+
+                export default ArticleCard;
+				
+				```
+				</CodeMinimizer>
+
+				### Step 3
+
+				Update `tailwind.config.js`
+
+				</Steps>
+    </Tabs.Content>
+
+    <Tabs.Content value="CLI">
+      <p>Under Construction</p>
+    </Tabs.Content>
+  </div>
+</Tabs.Root>
+
+## Usage
+
+```tsx
+import { ArticleCard } from "@paperplane-ui"
+```
+
+```tsx
+    <ArticleCard >
+      <ArticleCard.Image asChild>
+        <img />
+      </ArticleCard.Image>
+      <ArticleCard.Tags>
+      </ArticleCard.Tags>
+      <ArticleCard.Title children="Article Title" />
+      <ArticleCard.Description children="Article Description" />
+    </ArticleCard>
+```

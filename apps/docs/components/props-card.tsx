@@ -4,7 +4,7 @@ import { Code, Separator } from "@radix-ui/themes";
 
 type Props = {
   name: string;
-  description: string;
+  description: string | React.ReactNode;
   type: string;
 };
 
@@ -17,7 +17,7 @@ const propsCard = ({ name, description, type }: Props) => {
         </div>
         <div className="flex flex-col gap-2">
           <p className="font-mono">{type}</p>
-          <p>{description}</p>
+          {description}
         </div>
       </div>
       <Separator orientation="horizontal" size="4" />   

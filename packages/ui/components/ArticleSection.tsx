@@ -1,9 +1,7 @@
 import React from "react";
-import { VariantProps, cva } from "class-variance-authority";
 import { cn } from "../utils";
 
 export interface HeaderProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
-  icon?: string;
   title: string;
   date: string;
 }
@@ -11,7 +9,6 @@ export interface HeaderProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
 const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
   (
     {
-      icon = "https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png",
       title = "Title Section",
       date = "March 15, 2023",
       className,

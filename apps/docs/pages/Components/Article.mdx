@@ -1,0 +1,351 @@
+import React, { useState } from 'react';
+import { Steps } from 'nextra/components'
+import { Tabs } from '@radix-ui/themes'
+import PropsCard from '../../components/props-card.tsx';
+import  CodeMinimizer from 'ui/examples/controls/CodeMinimizer'
+import { ArticleSectionVariants } from 'ui/examples';
+
+# Article Section
+
+Preconfigured heading and description section for articles.
+
+## Components
+
+
+<Tabs.Root defaultValue="preview">
+  <Tabs.List>
+    <Tabs.Trigger value="preview">Preview</Tabs.Trigger>
+    <Tabs.Trigger value="code">Code</Tabs.Trigger>
+  </Tabs.List>
+  <div className="px-4 pt-3 pb-2">
+    <Tabs.Content value="preview">
+        <ArticleSectionVariants />
+      
+    </Tabs.Content>
+
+    <Tabs.Content value="code">
+      ```jsx copy 
+      import { useLayoutEffect, useRef } from "react";
+      import Article from "../components/ArticleSection";
+      import ShowcaseWrapper from "./controls/ComponentShowcaseWrapper";
+      import { Heading, Text } from "@radix-ui/themes";
+      import { gsap } from "gsap";
+
+
+      const ArticleSectionVariants = () => {
+        const title = useRef(null);
+        const icon = useRef(null);
+        const descriptionRefs = Array.from({ length: 4 }, () => useRef(null));
+        const animInRefs = Array.from({ length: 5 }, () => useRef(null));
+        const description =
+          "React is a popular JavaScript library widely used for building user interfaces in web applications. Developed by Facebook, React allows developers to create reusable UI components that efficiently update and render as data changes. Its declarative approach and Virtual DOM system enhance performance by minimizing direct manipulation of the actual DOM. This makes React a powerful tool for creating interactive, responsive, and maintainable web experiences.";
+
+        useLayoutEffect(() => {
+          let ctx = gsap.context(() => {
+            gsap.from(title.current, {
+              x: "-=200",
+            });
+            gsap.from(icon.current, {
+              y: "+=200",
+              opacity: 0,
+              delay: 0.3,
+            });
+
+            gsap.from(
+              descriptionRefs.map((ref) => ref.current),
+              {
+                stagger: 0.1,
+                y: "+=50",
+                opacity: 0,
+                delay: 0.3,
+              }
+            );
+            gsap.from(
+              animInRefs.map((ref) => ref.current),
+              {
+                stagger: 0.1,
+                x: "-=50",
+                opacity: 0,
+              }
+            );
+          });
+
+          return () => ctx.revert();
+        });
+
+        return (
+          <ShowcaseWrapper className="my-0">
+            <ShowcaseWrapper.Component className=" px-4 my-0">
+              <Article className="">
+                <Article.Header
+                  date="August 31, 2023"
+                  title="Article Title"
+                  ref={title}
+                >
+                  <div className=" overflow-hidden">
+                    <img
+                      ref={icon}
+                      src="https://res.cloudinary.com/dxmqknhgj/image/upload/v1692744161/ButtonIcon-gray_yae3pe.png"
+                      alt="img"
+                      style={{ height: "64px", width: "64px" }}
+                    />
+                  </div>
+                </Article.Header>
+                <Article.Description description={description} className="w-full" ref={animInRefs[0]}>
+                  <div>
+                    <Heading as="h3" size={"5"} className="pb-2">
+                      Frontend Team
+                    </Heading>
+                    <div className="flex flex-col gap-1" ref={descriptionRefs[0]}>
+                      <Text size={"1"}>Emily Johnson</Text>
+                      <Text size={"1"}>Alexander Martinez</Text>
+                      <Text size={"1"}>Lisa Thompson</Text>
+                      <Text size={"1"}>Michael Davis</Text>
+                      <Text size={"1"}>Olivia Rodriguez</Text>
+                    </div>
+                  </div>
+                  <div>
+                    <Heading as="h3" size={"5"} className="pb-2" ref={animInRefs[1]}>
+                      Backend Team
+                    </Heading>
+                    <div className="flex flex-col gap-1" ref={descriptionRefs[1]}>
+                      <Text size={"1"}>Daniel Williams</Text>
+                      <Text size={"1"}>Sophia Anderson</Text>
+                      <Text size={"1"}>David Martinez</Text>
+                      <Text size={"1"}>Isabella Johnson</Text>
+                      <Text size={"1"}>Jackson Brown</Text>
+                    </div>
+                  </div>
+                  <div>
+                    <Heading as="h3" size={"5"} className="pb-2" ref={animInRefs[2]}>
+                      DevOps Team
+                    </Heading>
+                    <div className="flex flex-col gap-1" ref={descriptionRefs[2]}>
+                      <Text size={"1"}>Ethan Smith</Text>
+                      <Text size={"1"}>Ava Wilson</Text>
+                      <Text size={"1"}>William Garcia</Text>
+                      <Text size={"1"}>Emma Davis</Text>
+                      <Text size={"1"}>Liam Martin</Text>
+                    </div>
+                  </div>
+                  <div>
+                    <Heading as="h3" size={"5"} className="pb-2" ref={animInRefs[3]}>
+                      Design Team
+                    </Heading>
+                    <div className="flex flex-col gap-1" ref={descriptionRefs[3]}>
+                      <Text size={"1"}>Noah Taylor</Text>
+                      <Text size={"1"}>Sofia Johnson</Text>
+                      <Text size={"1"}>James Anderson</Text>
+                      <Text size={"1"}>Avery Martinez</Text>
+                      <Text size={"1"}>Charlotte Davis</Text>
+                    </div>
+                  </div>
+                </Article.Description>
+              </Article>
+            </ShowcaseWrapper.Component>
+          </ShowcaseWrapper>
+        );
+      };
+
+      export { ArticleSectionVariants };
+
+      ````
+    </Tabs.Content>
+    </div>
+</Tabs.Root>
+
+<div className='w-full h-8' />
+
+## API Reference
+
+### Article <p className="text-sm font-normal inline-block">*(component wrapper)*</p>
+
+<PropsCard
+  name='ref'
+  description='Forwared Ref Attribute'
+  type='React.ForwardedRef<HTMLDivElement>'
+/>
+
+### Article.Header
+
+<PropsCard
+  name='children'
+  description='Children are added above Title and Date.'
+  type='ReactNode'
+/>
+<PropsCard
+  name='Title'
+  description='Use this prop to add the title of the article.'
+  type='stirng'
+/>
+<PropsCard
+  name='Date'
+  description='Use this prop to add the date of the article.'
+  type='string'
+/>
+
+### Article.Description
+
+<PropsCard
+  name='description'
+  description='This prop is used for a paragraph description with word wrap.'
+  type='string'
+/>
+<PropsCard
+  name='children'
+  description='Children are saved in a responsive grid pattern. '
+  type='ReactNode(s)'
+/>
+
+
+
+<div className='w-full h-8' />
+
+## Installation
+
+<Tabs.Root defaultValue="Manual">
+  <Tabs.List>
+    <Tabs.Trigger value="Manual">Manual</Tabs.Trigger>
+    <Tabs.Trigger value="CLI">CLI</Tabs.Trigger>
+  </Tabs.List>
+
+  <div className="px-4 pt-3 pb-2">
+    <Tabs.Content value="Manual">
+      <Steps>
+				### Step 1
+				 
+				Copy and paste code into your project
+
+				<CodeMinimizer>
+				```tsx copy
+                import React from "react";
+                import { cn } from "../utils";
+
+                export interface HeaderProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
+                  title: string;
+                  date: string;
+                }
+
+                const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
+                  (
+                    {
+                      title = "Title Section",
+                      date = "March 15, 2023",
+                      className,
+                      children,
+                      ...props
+                    },
+                    ref
+                  ) => {
+                    return (
+                      <div
+                        ref={ref}
+                        className={cn(
+                          "flex flex-col justify-start gap-4 whitespace-nowrap w-full",
+                          className
+                        )}
+                        {...props}
+                      >
+                        {children}
+                        <h1 className="text-xl md:text-4xl leading-6 font-bold mt-0 mb-4 ">
+                          {title}
+                        </h1>
+                        <strong className="pb-4">{date}</strong>
+                      </div>
+                    );
+                  }
+                );
+                Header.displayName = "ArticleHeader";
+
+                export interface DescriptionProps
+                  extends React.HtmlHTMLAttributes<HTMLDivElement> {
+                  description: string;
+                }
+
+                const Description = React.forwardRef<HTMLDivElement, DescriptionProps>(
+                  ({ className, description, children, ...props }, ref) => {
+                    return (
+                      <div
+                        ref={ref}
+                        {...props}
+                        className={cn(
+                          "flex flex-col gap-4 lg:grid lg:grid-flow-col w-full",
+                          className
+                        )}
+                      >
+                        <div className="">{description}</div>
+                        <div className="flex flex-col sm:flex-row sm:flex-wrap lg:grid lg:grid-cols-2 gap-6 lg:col-span-1">
+                          {children}
+                        </div>
+                      </div>
+                    );
+                  }
+                );
+                Description.displayName = "Description";
+
+                interface ArticleProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+                interface ArticleType
+                  extends React.ForwardRefExoticComponent<
+                    ArticleProps & React.RefAttributes<HTMLDivElement>
+                  > {
+                  Header: typeof Header;
+                  Description: typeof Description;
+                }
+
+                const Article = React.forwardRef<HTMLDivElement, ArticleProps>(
+                  ({ className, ...props }, ref) => {
+                    return (
+                      <div
+                        className={cn(
+                          "text-primary flex flex-col gap-4 items-start my-24 w-full",
+                          className
+                        )}
+                        {...props}
+                        ref={ref}
+                      />
+                    );
+                  }
+                ) as ArticleType;
+
+                Article.displayName = "Article";
+                Article.Header = Header;
+                Article.Description = Description;
+
+                export default Article;
+
+				
+				```
+				</CodeMinimizer>
+
+				### Step 2
+
+				Update `imports`
+
+				</Steps>
+    </Tabs.Content>
+
+    <Tabs.Content value="CLI">
+      <p>Under Construction</p>
+    </Tabs.Content>
+  </div>
+</Tabs.Root>
+
+## Usage
+
+```tsx
+import { Article } from "@paperplane-ui"
+```
+
+```tsx
+<Article>
+  <Article.Header date="" title="">
+  </Article.Header>
+  <Article.Description description="">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </Article.Description>
+</Article>
+```

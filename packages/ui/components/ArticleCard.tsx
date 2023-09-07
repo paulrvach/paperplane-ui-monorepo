@@ -1,7 +1,7 @@
-import { Button } from "./Button";
 import { cn } from "../utils";
+import { Slot } from '@radix-ui/react-slot';
 
-import React, { forwardRef, ForwardedRef, HTMLAttributes } from "react";
+import React, { forwardRef, HTMLAttributes } from "react";
 
 const Tags = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
@@ -33,16 +33,18 @@ const Description = forwardRef<
   <p className={cn("text-xs", className)} ref={ref} {...props} />
 ));
 
-interface ImageProps extends HTMLAttributes<HTMLDivElement> {
+interface ImageProps extends HTMLAttributes<HTMLImageElement> {
   src: string;
   alt: string;
-  href: string;
-  buttonText: string;
+  href?: string;
+  buttonText?: string;
+  asChild: boolean
 }
 
 const Image = forwardRef<HTMLDivElement, ImageProps>(
-  ({ src, alt, href, className, buttonText = "Website", ...props }, ref) => {
+  ({ asChild, href, className, buttonText , ...props }, ref) => {
     const [demo, setDemo] = React.useState(false);
+    const Comp = asChild ? Slot : 'img';
 
     const onHoverHandler = () => {
       setDemo(true);
@@ -61,19 +63,17 @@ const Image = forwardRef<HTMLDivElement, ImageProps>(
         onMouseOver={onHoverHandler}
         onMouseLeave={onLeaveHandler}
         ref={ref}
-        {...props}
       >
-        <img
-          src={src}
-          alt={alt}
+        <Comp
           className="shadow hover:shadow-lg select-none"
+          {...props}
         />
-        {demo && (
+        {demo && href &&(
           <a
             href={href}
             className="absolute bottom-3 transition-all duration-100 right-1"
           >
-            <Button variant={"default"}>{buttonText}</Button>
+            <button className="inline-flex items-center justify-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-8 rounded-md px-3 text-xs">{buttonText}</button>
           </a>
         )}
       </div>
@@ -97,7 +97,7 @@ const ArticleCard = forwardRef<HTMLDivElement, ArticleCardProps>(
   ({ className, children, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn("text-card-foreground w-full overflow-hidden", className)}
+      className={cn("text-card-foreground w-full", className)}
       {...props}
     >
       {children}
