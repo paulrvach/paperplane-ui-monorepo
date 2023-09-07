@@ -1,6 +1,5 @@
 import React, { ReactNode } from "react";
 import { cn } from "../../utils";
-import { Select } from "@radix-ui/themes";
 
 const Component: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   className,
@@ -10,8 +9,8 @@ const Component: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   return (
     <div
       className={cn(
-        className,
-        "flex items-center justify-around w-full overflow-auto"
+        "flex items-center justify-around w-full overflow-auto",
+        className
       )}
       {...props}
     >
@@ -20,28 +19,47 @@ const Component: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   );
 };
 
-
 const Controllers: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   className,
   children,
   ...props
 }) => {
+  console.log(className);
   return (
-    <div {...props} className={cn(className, "w-[256px]")}>
-      
-      <div className="flex flex-col gap-4">{children}</div>
+    <div className={cn("flex flex-col gap-4 w-[256px]", className)} {...props}>
+      {children}
     </div>
   );
 };
 
-const ShowcaseWrapper = ({ children }: { children?: ReactNode }) => {
+interface ShowcaseWrapperProps extends React.HTMLAttributes<HTMLDivElement> {
+  children?: ReactNode;
+}
+
+interface ShowcaseWrapperType {
+  Component: typeof Component;
+  Controllers: typeof Controllers;
+}
+
+const ShowcaseWrapper: React.FC<ShowcaseWrapperProps> & ShowcaseWrapperType = ({
+  children,
+  className,
+  ...props
+}) => {
   return (
-    <div className="flex w-full justify-end items-center py-4">{children}</div>
+    <div
+      className={cn("flex w-full justify-end items-center py-4", className)}
+      {...props}
+    >
+      {children}
+    </div>
   );
 };
 
+ShowcaseWrapper.displayName = "ShowcaseWrapper";
+
+// Attach sub-components
 ShowcaseWrapper.Component = Component;
 ShowcaseWrapper.Controllers = Controllers;
 
 export default ShowcaseWrapper;
-

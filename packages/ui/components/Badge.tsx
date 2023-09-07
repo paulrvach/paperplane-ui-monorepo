@@ -100,7 +100,7 @@ const Badges = forwardRef<HTMLDivElement, BadgesProps>(
       <div
         {...props}
         ref={ref}
-        className={cn(className, 'flex gap-1 flex-wrap')}
+        className={cn( 'flex gap-1 flex-wrap', className)}
       >
         {shortened.map((node, index) => (
           <div key={index} ref={(el) => (elements.current[index] = el as never)}>

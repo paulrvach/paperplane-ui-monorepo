@@ -3,7 +3,10 @@ import {
   Select,
   SelectRoot,
   Slider as RadixSlider,
-  Tabs,
+  RadioGroup,
+  RadioGroupRoot,
+  Flex,
+  Text,
 } from "@radix-ui/themes";
 import { cn } from "../../utils";
 
@@ -23,13 +26,15 @@ const Selector: React.FC<SelectorTypes> = ({
 }) => {
   return (
     <Select.Root onValueChange={onValueChange} {...props}>
-      <p>{propName}</p>
+      <Text>{propName}</Text>
       <Select.Trigger placeholder={placeholder} />
       <Select.Content>
         <Select.Group>
           <Select.Label>{propName}</Select.Label>
-          {propTypes.map((type) => (
-            <Select.Item value={type.toString()}>{type}</Select.Item>
+          {propTypes.map((type, index) => (
+            <Select.Item value={type.toString()} key={index}>
+              {type}
+            </Select.Item>
           ))}
         </Select.Group>
       </Select.Content>
@@ -54,7 +59,7 @@ const Slider: React.FC<SliderTypes> = ({
 }) => {
   return (
     <>
-      <p>{propName}</p>
+      <Text>{propName}</Text>
       <div className={cn(className)}>
         <RadixSlider
           onValueChange={onValueChange}
@@ -70,27 +75,41 @@ const Slider: React.FC<SliderTypes> = ({
   );
 };
 
-const aaa = () => {
+interface RadioTypes extends React.ComponentProps<typeof RadioGroupRoot> {
+  items: string[];
+  direction?: "column" | "row" | "row-reverse" | "column-reverse";
+  propName: string;
+}
+
+const Radio: React.FC<RadioTypes> = ({
+  items,
+  defaultValue,
+  onValueChange,
+  direction = "column",
+  className,
+  propName,
+  ...props
+}) => {
   return (
-    <Tabs.Root defaultValue="preview">
-      <Tabs.List>
-        <Tabs.Trigger value="preview">Preview</Tabs.Trigger>
-        <Tabs.Trigger value="code">Code</Tabs.Trigger>
-      </Tabs.List>
-
-      <Tabs.Content value="preview">{/* <BadgeVariants /> */}</Tabs.Content>
-
-      <Tabs.Content value="code">
-        ```jsx copy filename="variants"
-        {/* <Badge variant='default' children={'default'} />
-        <Badge variant='secondary' children={'secondary'} />
-        <Badge variant='destructive' children={'destructive'} />
-        <Badge variant='outline' children={'outline'} />
-        <Badge variant='round' children={'round'} /> */}
-        ````
-      </Tabs.Content>
-    </Tabs.Root>
+    <RadioGroup.Root
+      defaultValue={defaultValue}
+      onValueChange={onValueChange}
+      className={cn(className, "flex flex-col gap-2")}
+      {...props}
+    >
+      <Text>{propName}</Text>
+      <Flex gap="2" direction={direction}>
+        {items.map((item, index) => (
+          <label key={index}>
+            <Flex gap="2" align="center">
+              <RadioGroup.Item value={item} />
+              <Text size="2">{item}</Text>
+            </Flex>
+          </label>
+        ))}
+      </Flex>
+    </RadioGroup.Root>
   );
 };
 
-export { Selector, Slider };
+export { Selector, Slider, Radio };
