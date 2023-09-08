@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Carousel, CarouselProps } from "../components/carousel";
+import { Carousel, type CarouselProps } from "../components/carosuel";
 import ExampleCard from "./cards/article-card";
-import { Selector, Radio } from "./controls/Controllers";
-import ShowcaseWrapper from "./controls/ComponentShowcaseWrapper";
+import { Radio } from "./controls/controllers";
+import ShowcaseWrapper from "./controls/component-showcase-wrapper";
 
-const CardShowcaseVariants = () => {
+function CardShowcaseVariants(): JSX.Element {
   const [width, setWidth] = useState<CarouselProps["cardWidth"]>("lg");
   const [align, setAlign] = useState<CarouselProps["align"]>("start");
 
@@ -22,22 +22,22 @@ const CardShowcaseVariants = () => {
       </ShowcaseWrapper.Component>
       <ShowcaseWrapper.Controllers className="flex-row justify-around w-full ">
         <Radio
-          items={["sm", "md", "lg"]}
           defaultValue={width as never}
-          onValueChange={(val) => setWidth(val as never)}
           direction="row"
+          items={["sm", "md", "lg"]}
+          onValueChange={(val) => setWidth(val as never)}
           propName="Card Width"
         />
         <Radio
-          items={["start", "center", "end"]}
           defaultValue={align as never}
-          onValueChange={(val) => setAlign(val as never)}
           direction="row"
+          items={["start", "center", "end"]}
+          onValueChange={(val) => setAlign(val as never)}
           propName="Alignment"
         />
       </ShowcaseWrapper.Controllers>
     </ShowcaseWrapper>
   );
-};
+}
 
 export default CardShowcaseVariants;

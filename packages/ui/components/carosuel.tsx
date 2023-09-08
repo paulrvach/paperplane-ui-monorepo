@@ -1,4 +1,4 @@
-import React, {
+import {
   useLayoutEffect,
   useRef,
   type ReactElement,
@@ -121,7 +121,7 @@ function Carousel({
   }, []);
 
   return (
-    <>
+    <div>
       <div className="flex h-fit gap-2 justify-end align-middle ">
         <button
           className="border-2 border-border cursor-pointer rounded-full flex items-center justify-center p-1"
@@ -161,7 +161,7 @@ function Carousel({
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 }
 

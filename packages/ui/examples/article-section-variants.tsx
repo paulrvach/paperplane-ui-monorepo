@@ -1,19 +1,19 @@
-import { useLayoutEffect, useRef } from "react";
-import Article from "../components/article-section";
-import ShowcaseWrapper from "./controls/ComponentShowcaseWrapper";
-import { Heading, Text } from "@radix-ui/themes";
+import { useLayoutEffect, useRef} from "react";
 import { gsap } from "gsap";
+import { Heading, Text } from "@radix-ui/themes";
+import Article from "../components/article-section";
+import ShowcaseWrapper from "./controls/component-showcase-wrapper";
 
-const ArticleSectionVariants = () => {
+function ArticleSectionVariants(): JSX.Element {
   const title = useRef(null);
   const icon = useRef(null);
-  const descriptionRefs = Array.from({ length: 4 }, () => useRef(null));
-  const animInRefs = Array.from({ length: 5 }, () => useRef(null));
+  const descriptionRefs = useRef<HTMLDivElement[] | null[]>([]);
+  const animInRefs = useRef<HTMLDivElement[] | null[]>([]);
   const description =
     "React is a popular JavaScript library widely used for building user interfaces in web applications. Developed by Facebook, React allows developers to create reusable UI components that efficiently update and render as data changes. Its declarative approach and Virtual DOM system enhance performance by minimizing direct manipulation of the actual DOM. This makes React a powerful tool for creating interactive, responsive, and maintainable web experiences.";
 
   useLayoutEffect(() => {
-    let ctx = gsap.context(() => {
+    const ctx = gsap.context(() => {
       gsap.from(title.current, {
         x: "-=200",
       });
@@ -24,21 +24,21 @@ const ArticleSectionVariants = () => {
       });
 
       gsap.from(
-        descriptionRefs.map((ref) => ref.current),
+        descriptionRefs.current.map((ref) => ref),
         {
           stagger: 0.1,
           y: "+=50",
           opacity: 0,
           delay: 0.3,
-        },
+        }
       );
       gsap.from(
-        animInRefs.map((ref) => ref.current),
+        animInRefs.current.map((ref) => ref),
         {
           stagger: 0.1,
           x: "-=50",
           opacity: 0,
-        },
+        }
       );
     });
 
@@ -51,69 +51,112 @@ const ArticleSectionVariants = () => {
         <Article className="">
           <Article.Header
             date="August 31, 2023"
-            title="Article Title"
             ref={title}
+            title="Article Title"
           >
             <div className=" overflow-hidden">
               <img
+                alt="img"
                 ref={icon}
                 src="https://res.cloudinary.com/dxmqknhgj/image/upload/v1692744161/ButtonIcon-gray_yae3pe.png"
-                alt="img"
                 style={{ height: "64px", width: "64px" }}
               />
             </div>
           </Article.Header>
           <Article.Description
-            description={description}
             className="w-full"
-            ref={animInRefs[0]}
+            description={description}
+            ref={(el): void => {
+              animInRefs.current[0] = el;
+            }}
           >
             <div>
-              <Heading as="h3" size={"5"} className="pb-2">
+              <Heading as="h3" className="pb-2" size="5">
                 Frontend Team
               </Heading>
-              <div className="flex flex-col gap-1" ref={descriptionRefs[0]}>
-                <Text size={"1"}>Emily Johnson</Text>
-                <Text size={"1"}>Alexander Martinez</Text>
-                <Text size={"1"}>Lisa Thompson</Text>
-                <Text size={"1"}>Michael Davis</Text>
-                <Text size={"1"}>Olivia Rodriguez</Text>
+              <div
+                className="flex flex-col gap-1"
+                ref={(el): void => {
+                  descriptionRefs.current[0] = el;
+                }}
+              >
+                <Text size="1">Emily Johnson</Text>
+                <Text size="1">Alexander Martinez</Text>
+                <Text size="1">Lisa Thompson</Text>
+                <Text size="1">Michael Davis</Text>
+                <Text size="1">Olivia Rodriguez</Text>
               </div>
             </div>
             <div>
-              <Heading as="h3" size={"5"} className="pb-2" ref={animInRefs[1]}>
+              <Heading
+                as="h3"
+                className="pb-2"
+                ref={(el): void => {
+                  animInRefs.current[1] = el;
+                }}
+                size="5"
+              >
                 Backend Team
               </Heading>
-              <div className="flex flex-col gap-1" ref={descriptionRefs[1]}>
-                <Text size={"1"}>Daniel Williams</Text>
-                <Text size={"1"}>Sophia Anderson</Text>
-                <Text size={"1"}>David Martinez</Text>
-                <Text size={"1"}>Isabella Johnson</Text>
-                <Text size={"1"}>Jackson Brown</Text>
+              <div
+                className="flex flex-col gap-1"
+                ref={(el): void => {
+                  descriptionRefs.current[1] = el;
+                }}
+              >
+                <Text size="1">Daniel Williams</Text>
+                <Text size="1">Sophia Anderson</Text>
+                <Text size="1">David Martinez</Text>
+                <Text size="1">Isabella Johnson</Text>
+                <Text size="1">Jackson Brown</Text>
               </div>
             </div>
             <div>
-              <Heading as="h3" size={"5"} className="pb-2" ref={animInRefs[2]}>
+              <Heading
+                as="h3"
+                className="pb-2"
+                ref={(el): void => {
+                  animInRefs.current[2] = el;
+                }}
+                size="5"
+              >
                 DevOps Team
               </Heading>
-              <div className="flex flex-col gap-1" ref={descriptionRefs[2]}>
-                <Text size={"1"}>Ethan Smith</Text>
-                <Text size={"1"}>Ava Wilson</Text>
-                <Text size={"1"}>William Garcia</Text>
-                <Text size={"1"}>Emma Davis</Text>
-                <Text size={"1"}>Liam Martin</Text>
+              <div
+                className="flex flex-col gap-1"
+                ref={(el): void => {
+                  descriptionRefs.current[2] = el;
+                }}
+              >
+                <Text size="1">Ethan Smith</Text>
+                <Text size="1">Ava Wilson</Text>
+                <Text size="1">William Garcia</Text>
+                <Text size="1">Emma Davis</Text>
+                <Text size="1">Liam Martin</Text>
               </div>
             </div>
             <div>
-              <Heading as="h3" size={"5"} className="pb-2" ref={animInRefs[3]}>
+              <Heading
+                as="h3"
+                className="pb-2"
+                ref={(el): void => {
+                  animInRefs.current[3] = el;
+                }}
+                size="5"
+              >
                 Design Team
               </Heading>
-              <div className="flex flex-col gap-1" ref={descriptionRefs[3]}>
-                <Text size={"1"}>Noah Taylor</Text>
-                <Text size={"1"}>Sofia Johnson</Text>
-                <Text size={"1"}>James Anderson</Text>
-                <Text size={"1"}>Avery Martinez</Text>
-                <Text size={"1"}>Charlotte Davis</Text>
+              <div
+                className="flex flex-col gap-1"
+                ref={(el): void => {
+                  descriptionRefs.current[3] = el;
+                }}
+              >
+                <Text size="1">Noah Taylor</Text>
+                <Text size="1">Sofia Johnson</Text>
+                <Text size="1">James Anderson</Text>
+                <Text size="1">Avery Martinez</Text>
+                <Text size="1">Charlotte Davis</Text>
               </div>
             </div>
           </Article.Description>
@@ -121,6 +164,6 @@ const ArticleSectionVariants = () => {
       </ShowcaseWrapper.Component>
     </ShowcaseWrapper>
   );
-};
+}
 
 export { ArticleSectionVariants };

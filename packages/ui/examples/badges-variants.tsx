@@ -1,7 +1,7 @@
 import React from "react";
 import { Badge, Badges, BadgesProps, BadgeProps } from "../components/badge";
-import { Selector, Slider } from "./controls/Controllers";
-import ShowcaseWrapper from "./controls/ComponentShowcaseWrapper";
+import { Selector, Slider } from "./controls/controllers";
+import ShowcaseWrapper from "./controls/component-showcase-wrapper";
 
 const ColoredBadges = () => {
   const [stagger, setStagger] = React.useState<BadgesProps["stagger"]>(0.4);

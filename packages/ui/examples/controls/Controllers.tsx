@@ -1,29 +1,28 @@
-import React from "react";
+import { type ComponentProps } from "react";
 import {
   Select,
-  SelectRoot,
+  type SelectRoot,
   Slider as RadixSlider,
   RadioGroup,
-  RadioGroupRoot,
+  type RadioGroupRoot,
   Flex,
   Text,
 } from "@radix-ui/themes";
 import { cn } from "../../utils";
 
-interface SelectorTypes extends React.ComponentProps<typeof SelectRoot> {
+interface SelectorProps extends ComponentProps<typeof SelectRoot> {
   propName: string;
   propTypes: string[] | number[];
   placeholder?: string;
 }
 
-const Selector: React.FC<SelectorTypes> = ({
+function Selector({
   propName,
   propTypes,
   onValueChange,
   placeholder,
-
   ...props
-}) => {
+}: SelectorProps): JSX.Element {
   return (
     <Select.Root onValueChange={onValueChange} {...props}>
       <Text>{propName}</Text>
@@ -40,13 +39,13 @@ const Selector: React.FC<SelectorTypes> = ({
       </Select.Content>
     </Select.Root>
   );
-};
+}
 
-interface SliderTypes extends React.ComponentProps<typeof RadixSlider> {
+interface SliderProps extends ComponentProps<typeof RadixSlider> {
   propName: string;
 }
 
-const Slider: React.FC<SliderTypes> = ({
+function Slider({
   onValueChange,
   size,
   variant,
@@ -56,32 +55,32 @@ const Slider: React.FC<SliderTypes> = ({
   className,
   propName,
   defaultValue,
-}) => {
+}: SliderProps): JSX.Element {
   return (
     <>
       <Text>{propName}</Text>
       <div className={cn(className)}>
         <RadixSlider
+          color={color}
+          defaultValue={defaultValue ? defaultValue : [50]}
+          highContrast={highContrast}
           onValueChange={onValueChange}
+          radius={radius ? radius : "full"}
           size={size ? size : "1"}
           variant={variant}
-          color={color}
-          highContrast={highContrast}
-          radius={radius ? radius : "full"}
-          defaultValue={defaultValue ? defaultValue : [50]}
         />
       </div>
     </>
   );
-};
+}
 
-interface RadioTypes extends React.ComponentProps<typeof RadioGroupRoot> {
+interface RadioProps extends ComponentProps<typeof RadioGroupRoot> {
   items: string[];
   direction?: "column" | "row" | "row-reverse" | "column-reverse";
   propName: string;
 }
 
-const Radio: React.FC<RadioTypes> = ({
+function Radio({
   items,
   defaultValue,
   onValueChange,
@@ -89,20 +88,20 @@ const Radio: React.FC<RadioTypes> = ({
   className,
   propName,
   ...props
-}) => {
+}: RadioProps): JSX.Element {
   return (
     <RadioGroup.Root
+      className={cn(className, "flex flex-col gap-2")}
       defaultValue={defaultValue}
       onValueChange={onValueChange}
-      className={cn(className, "flex flex-col gap-2")}
       {...props}
     >
       <Text>{propName}</Text>
-      <Flex gap="2" direction={direction}>
-        {items.map((item, index) => (
-          <label key={index}>
-            <Flex gap="2" align="center">
-              <RadioGroup.Item value={item} />
+      <Flex direction={direction} gap="2">
+        {items.map((item) => (
+          <label htmlFor={item} key={item}>
+            <Flex align="center" gap="2">
+              <RadioGroup.Item id={item} value={item} />
               <Text size="2">{item}</Text>
             </Flex>
           </label>
@@ -110,6 +109,6 @@ const Radio: React.FC<RadioTypes> = ({
       </Flex>
     </RadioGroup.Root>
   );
-};
+}
 
 export { Selector, Slider, Radio };

@@ -1,6 +1,6 @@
-import React from "react";
+import { forwardRef } from "react";
 import { Slot } from "@radix-ui/react-slot";
-import { VariantProps, cva } from "class-variance-authority";
+import { type VariantProps, cva } from "class-variance-authority";
 import { cn } from "../utils";
 
 const socialMediaButtonVariants = cva(
@@ -18,7 +18,7 @@ const socialMediaButtonVariants = cva(
     defaultVariants: {
       size: "md",
     },
-  },
+  }
 );
 
 export interface SocialMediaButtonProps
@@ -28,18 +28,19 @@ export interface SocialMediaButtonProps
   src?: string;
 }
 
-const SocialMediaButton = React.forwardRef<
-  HTMLImageElement,
-  SocialMediaButtonProps
->(({ className, size, asChild = false, ...props }, ref) => {
-  const Comp = asChild ? Slot : "img";
-  return (
-    <Comp
-      className={cn(socialMediaButtonVariants({ size, className }))}
-      ref={ref}
-      {...props}
-    />
-  );
-});
+const SocialMediaButton = forwardRef<HTMLImageElement, SocialMediaButtonProps>(
+  ({ className, size, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : "img";
+    return (
+      <Comp
+        className={cn(socialMediaButtonVariants({ size, className }))}
+        ref={ref}
+        {...props}
+      />
+    );
+  }
+);
+
+SocialMediaButton.displayName = "SocialMediaButton"
 
 export { SocialMediaButton, socialMediaButtonVariants };

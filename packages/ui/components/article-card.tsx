@@ -51,7 +51,7 @@ interface ImageProps extends HTMLAttributes<HTMLImageElement> {
   alt: string;
   href?: string;
   buttonText?: string;
-  asChild: boolean;
+  asChild?: boolean;
 }
 
 const Image = forwardRef<HTMLDivElement, ImageProps>(

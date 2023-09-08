@@ -1,7 +1,7 @@
 import React from "react";
 import { Badge, BadgeProps } from "../components/badge";
-import { Selector } from "./controls/Controllers";
-import ShowcaseWrapper from "./controls/ComponentShowcaseWrapper";
+import { Selector } from "./controls/controllers";
+import ShowcaseWrapper from "./controls/component-showcase-wrapper";
 
 const BadgeVariants = () => {
   const [variant, setVariant] =
