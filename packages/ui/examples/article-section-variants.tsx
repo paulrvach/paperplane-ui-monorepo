@@ -1,9 +1,8 @@
 import { useLayoutEffect, useRef } from "react";
-import Article from "../components/ArticleSection";
+import Article from "../components/article-section";
 import ShowcaseWrapper from "./controls/ComponentShowcaseWrapper";
 import { Heading, Text } from "@radix-ui/themes";
 import { gsap } from "gsap";
-
 
 const ArticleSectionVariants = () => {
   const title = useRef(null);
@@ -31,7 +30,7 @@ const ArticleSectionVariants = () => {
           y: "+=50",
           opacity: 0,
           delay: 0.3,
-        }
+        },
       );
       gsap.from(
         animInRefs.map((ref) => ref.current),
@@ -39,7 +38,7 @@ const ArticleSectionVariants = () => {
           stagger: 0.1,
           x: "-=50",
           opacity: 0,
-        }
+        },
       );
     });
 
@@ -64,7 +63,11 @@ const ArticleSectionVariants = () => {
               />
             </div>
           </Article.Header>
-          <Article.Description description={description} className="w-full" ref={animInRefs[0]}>
+          <Article.Description
+            description={description}
+            className="w-full"
+            ref={animInRefs[0]}
+          >
             <div>
               <Heading as="h3" size={"5"} className="pb-2">
                 Frontend Team

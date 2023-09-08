@@ -1,14 +1,13 @@
 import React from "react";
-
 import { Code, Separator } from "@radix-ui/themes";
 
-type Props = {
+interface PropsCardProps {
   name: string;
   description: string | React.ReactNode;
   type: string;
 };
 
-const propsCard = ({ name, description, type }: Props) => {
+const propsCard: React.FC<PropsCardProps> = ({ name, description, type }) => {
   return (
     <>
       <div className="flex flex-col md:flex-row py-4 gap-4 md:gap-0">
@@ -20,7 +19,7 @@ const propsCard = ({ name, description, type }: Props) => {
           {description}
         </div>
       </div>
-      <Separator orientation="horizontal" size="4" />   
+      <Separator orientation="horizontal" size="4" />
     </>
   );
 };

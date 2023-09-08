@@ -10,7 +10,7 @@ const Component: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
     <div
       className={cn(
         "flex items-center justify-around w-full overflow-auto",
-        className
+        className,
       )}
       {...props}
     >

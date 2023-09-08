@@ -1,5 +1,5 @@
-import { VariantProps, cva } from 'class-variance-authority';
-import { cn } from '../utils';
+import { VariantProps, cva } from "class-variance-authority";
+import { cn } from "../utils";
 
 const toolTipVariants = cva({});
 

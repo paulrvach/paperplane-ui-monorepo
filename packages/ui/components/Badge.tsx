@@ -1,8 +1,15 @@
-import React, { forwardRef, useState, useEffect, useRef } from 'react';
+import React, {
+  forwardRef,
+  useState,
+  useEffect,
+  useRef,
+  Children,
+  type HTMLAttributes,
+} from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons';
-import { cn } from '../utils';
 import gsap from 'gsap';
+import { cn } from '../utils';
 
 const badgeVariants = cva(
   'inline-flex items-center px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 cursor-pointer',
@@ -29,10 +36,10 @@ const badgeVariants = cva(
 // TODO: multiple badges animted in
 
 export interface BadgeProps
-  extends React.HTMLAttributes<HTMLDivElement>,
+  extends HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof badgeVariants> {}
 
-const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
+const Badge = forwardRef<HTMLDivElement, BadgeProps>(
   ({ className, variant, ...props }, ref) => {
     return (
       <div
@@ -44,7 +51,9 @@ const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
   }
 );
 
-export interface BadgesProps extends React.HTMLAttributes<HTMLDivElement> {
+Badge.displayName = 'Badge';
+
+export interface BadgesProps extends HTMLAttributes<HTMLDivElement> {
   length: number;
   stagger?: number;
 }
@@ -53,76 +62,95 @@ const Badges = forwardRef<HTMLDivElement, BadgesProps>(
   ({ children, className, length, stagger, ...props }, ref) => {
     const [opened, setOpened] = useState(false);
     const [shortened, setShortened] = useState<React.ReactNode[]>([]);
-    const elements = useRef<HTMLDivElement[] >([]);
+    const elements = useRef<HTMLDivElement[]>([]);
+    const isFullLength: boolean =
+      shortened.length === Children.toArray(children).length;
+    const showLess: boolean = shortened.length <= length;
 
-    const animateChildren = () => {
-      const animations = gsap.timeline({
-        defaults: {
-          duration: stagger,
-          scaleY: 0.1,
-        },
-      });
-      elements.current.slice(length).forEach((element, index) => {
-        animations.from(element, {
-          opacity: 0,
-          y: '+=15',
-          ease: 'circ',
-        });
-      });
-    };
-
-    const handleShowMore = () => {
-      setShortened(React.Children.toArray(children));
+    const handleShowMore = (): void => {
+      setShortened(Children.toArray(children));
       setOpened(true);
     };
 
-    const shortenChildren = () => {
-      const reactNodeArray = React.Children.toArray(children);
+    const handleShowLess = (): void => {
+      const reactNodeArray = Children.toArray(children);
       if (reactNodeArray.length > length) {
         setShortened(reactNodeArray.slice(0, length));
       } else {
         setShortened(reactNodeArray);
       }
-      setOpened(false);
     };
 
     useEffect(() => {
+      const shortenChildren = (): void => {
+        const reactNodeArray = Children.toArray(children);
+        if (reactNodeArray.length > length) {
+          setShortened(reactNodeArray.slice(0, length));
+        } else {
+          setShortened(reactNodeArray);
+        }
+        setOpened(false);
+      };
       shortenChildren();
     }, [children, length]);
 
     useEffect(() => {
+      const animateChildren = (): void => {
+        const animations = gsap.timeline({
+          defaults: {
+            duration: stagger,
+            scaleY: 0.1,
+          },
+        });
+        elements.current.slice(length).forEach((element) => {
+          animations.from(element, {
+            opacity: 0,
+            y: '+=15',
+            ease: 'circ',
+          });
+        });
+      };
       if (opened) {
         animateChildren();
       }
-    }, [opened]);
+    }, [opened, length, stagger]);
 
     return (
       <div
         {...props}
+        className={cn('flex gap-1 flex-wrap', className)}
         ref={ref}
-        className={cn( 'flex gap-1 flex-wrap', className)}
       >
         {shortened.map((node, index) => (
-          <div key={index} ref={(el) => (elements.current[index] = el as never)}>
+          <div
+            key={node?.toLocaleString()}
+            ref={(el): void => (elements.current[index] = el as never)}
+          >
             {node}
           </div>
         ))}
-        {shortened.length === React.Children.toArray(children).length ? (
-          shortened.length <= length ? null : (
-            <Badge variant={'outline'} onClick={shortenChildren}   className="relative group"
-            >
-              {' '}
-              {'Show Less'} <ChevronUpIcon className='w-4 h-4 transform group-hover:rotate-180 transition duration-300'/>
-            </Badge>
-          )
-        ) : (
-          <Badge variant={'outline'} onClick={handleShowMore} className='relative group'>
-            {'Show More'}<ChevronDownIcon className='w-4 h-4'/>
+        {isFullLength ? null : (
+          <Badge
+            className='relative group'
+            onClick={showLess ? handleShowLess : handleShowMore}
+            variant='outline'
+          >
+            {showLess ? (
+              <>
+                Show Less <ChevronUpIcon className='w-4 h-4 inline transform group-hover:rotate-180 transition duration-300' />
+              </>
+            ) : (
+              <>
+                Show More <ChevronDownIcon className='w-4 h-4 inline ' />
+              </>
+            )}
           </Badge>
         )}
       </div>
     );
   }
 );
+
+Badges.displayName = 'Badges';
 
 export { Badge, Badges, badgeVariants };

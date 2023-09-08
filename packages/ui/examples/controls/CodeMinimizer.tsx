@@ -33,7 +33,7 @@ const CodeMinimizer: React.FC<CodeMinimizerProps> = ({
   const ref = useRef<HTMLDivElement>(null);
 
   const handleOnClick = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     setIsCollapsed(!isCollapsed);
     if (ref.current) {
@@ -51,7 +51,7 @@ const CodeMinimizer: React.FC<CodeMinimizerProps> = ({
         <div
           className={clsx(
             "relative flex-none min-w-full px-4 sm:px-6 md:px-0 overflow-hidden lg:overflow-auto scrollbar:!w-1.5 scrollbar:!h-1.5 scrollbar:bg-transparent scrollbar-track:!bg-slate-100 scrollbar-thumb:!rounded scrollbar-thumb:transparent scrollbar-track:rounded dark:scrollbar-track:!bg-slate-500/[0.16] dark:scrollbar-thumb:!bg-slate-500/50",
-            isCollapsed && "max-h-96"
+            isCollapsed && "max-h-96",
           )}
         >
           {children}
@@ -59,12 +59,10 @@ const CodeMinimizer: React.FC<CodeMinimizerProps> = ({
         <div
           className={clsx(
             "w-full p-4 grid place-items-center",
-            !isCollapsed && "sticky bottom-0 "
+            !isCollapsed && "sticky bottom-0 ",
           )}
         >
-          <div
-            className="absolute bottom-0 w-full h-48  rounded-b-lg bg-gradient-to-t from-background pointer-events-none"
-          />
+          <div className="absolute bottom-0 w-full h-48  rounded-b-lg bg-gradient-to-t from-background pointer-events-none" />
           <Button onClick={handleOnClick} variant="ghost" className="z-20">
             {isCollapsed ? "Show More" : "Collapse"}{" "}
           </Button>

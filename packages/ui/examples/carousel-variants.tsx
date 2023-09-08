@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Carousel, CarouselProps } from "../components/Carousel";
+import { Carousel, CarouselProps } from "../components/carousel";
 import ExampleCard from "./cards/article-card";
 import { Selector, Radio } from "./controls/Controllers";
 import ShowcaseWrapper from "./controls/ComponentShowcaseWrapper";

@@ -1,55 +1,59 @@
-import React, { useLayoutEffect, useRef } from "react";
-import { VariantProps, cva } from "class-variance-authority";
-import { ArrowLeftIcon, ArrowRightIcon } from "@radix-ui/react-icons";
-import { cn } from "../utils";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/dist/ScrollTrigger";
+import {
+  useLayoutEffect,
+  useRef,
+  type FC,
+  type HtmlHTMLAttributes,
+  useState,
+  Children,
+} from 'react';
+import { type VariantProps, cva } from 'class-variance-authority';
+import { ArrowLeftIcon, ArrowRightIcon } from '@radix-ui/react-icons';
+import gsap from 'gsap';
+import ScrollTrigger from 'gsap/dist/ScrollTrigger';
+import { cn } from '../utils';
 
 // applicable variants gap, how many cards fit on screen?, scrub,
 
-const carouselVariants = cva(
-  "inline-flex flex scroll-smooth gap-3 w-full",
-  {
-    variants: {
-      direction: {
-        horizontal: "overflow-x-scroll snap-x snap-mandatory",
-        vertical: "flex flex-col overflow-y-scroll snap-y snap-mandatory",
-      },
-    },
-    defaultVariants: {
-      direction: "horizontal",
-    },
-  }
-);
-
-const carouselItemVariants = cva("box-content flex flex-none snap-always", {
+const carouselVariants = cva('inline-flex flex scroll-smooth gap-3 w-full', {
   variants: {
-    align: {
-      start: "snap-start",
-      center: "snap-center",
-      end: "snap-end",
-    },
-    cardWidth: {
-      sm: "w-full sm:w-1/2 md:w-1/3 lg:w-1/4 2xl:w-1/5",
-      md: "w-full md:w-1/2 lg:w-1/3 2xl:w-1/4",
-      lg: "w-full lg:w-1/2 2xl:w-1/3",
+    direction: {
+      horizontal: 'overflow-x-scroll snap-x snap-mandatory',
+      vertical: 'flex flex-col overflow-y-scroll snap-y snap-mandatory',
     },
   },
   defaultVariants: {
-    align: "center",
-    cardWidth: "md",
+    direction: 'horizontal',
+  },
+});
+
+const carouselItemVariants = cva('box-content flex flex-none snap-always', {
+  variants: {
+    align: {
+      start: 'snap-start',
+      center: 'snap-center',
+      end: 'snap-end',
+    },
+    cardWidth: {
+      sm: 'w-full sm:w-1/2 md:w-1/3 lg:w-1/4 2xl:w-1/5',
+      md: 'w-full md:w-1/2 lg:w-1/3 2xl:w-1/4',
+      lg: 'w-full lg:w-1/2 2xl:w-1/3',
+    },
+  },
+  defaultVariants: {
+    align: 'center',
+    cardWidth: 'md',
   },
 });
 
 export interface CarouselProps
-  extends React.HtmlHTMLAttributes<HTMLDivElement>,
+  extends HtmlHTMLAttributes<HTMLDivElement>,
     VariantProps<typeof carouselVariants>,
     VariantProps<typeof carouselItemVariants> {
   href?: string;
   scrub?: boolean;
 }
 
-const Carousel: React.FC<CarouselProps> = ({
+const Carousel: FC<CarouselProps> = ({
   className,
   children,
   direction,
@@ -57,10 +61,10 @@ const Carousel: React.FC<CarouselProps> = ({
   scrub = false,
   cardWidth,
   ...props
-}) => {
+}: CarouselProps) => {
   const parentDiv = useRef<HTMLDivElement>(null);
   const elements = useRef<HTMLDivElement[]>([]);
-  const [currentSlide, setCurrentSlide] = React.useState<number>(0);
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
 
   const combinedClassName = cn(carouselVariants({ direction, className }));
 
@@ -71,8 +75,8 @@ const Carousel: React.FC<CarouselProps> = ({
 
       const element = document.getElementById(`slide${prevSlide}`);
       element?.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest", // or 'center' if you prefer
+        behavior: 'smooth',
+        block: 'nearest', // or 'center' if you prefer
         inline: align as never,
       });
     }
@@ -90,9 +94,9 @@ const Carousel: React.FC<CarouselProps> = ({
 
     const element = document.getElementById(`slide${nextSlide}`);
     element?.scrollIntoView({
-      behavior: "smooth",
-      block: "nearest", // or 'center' if you prefer
-      inline: "start",
+      behavior: 'smooth',
+      block: 'nearest', // or 'center' if you prefer
+      inline: 'start',
     });
   };
 
@@ -101,14 +105,14 @@ const Carousel: React.FC<CarouselProps> = ({
 
     let ctx = gsap.context(() => {
       gsap.from(elements.current, {
-        y: "+=600",
+        y: '+=600',
         stagger: 0.2,
         opacity: 0,
-        ease: "none",
+        ease: 'none',
         scrollTrigger: {
           trigger: parentDiv?.current,
-          start: "-=500",
-          end: "top top",
+          start: '-=500',
+          end: 'top top',
           scrub: scrub,
         },
       });
@@ -118,32 +122,32 @@ const Carousel: React.FC<CarouselProps> = ({
   }, []);
 
   return (
-    <div>
-      <div className="flex h-fit gap-2 justify-end align-middle ">
+    <>
+      <div className='flex h-fit gap-2 justify-end align-middle '>
         <div
-          className="border-2 border-border cursor-pointer rounded-full flex items-center justify-center p-1"
+          className='border-2 border-border cursor-pointer rounded-full flex items-center justify-center p-1'
           onClick={handlePreviousClick}
         >
-          <ArrowLeftIcon className="w-4 h-4" />
+          <ArrowLeftIcon className='w-4 h-4' />
         </div>
         <div
-          className="border-2 border-border cursor-pointer rounded-full flex items-center justify-center p-1"
+          className='border-2 border-border cursor-pointer rounded-full flex items-center justify-center p-1'
           onClick={handleNextClick}
         >
-          <ArrowRightIcon className="w-4 h-4" />
+          <ArrowRightIcon className='w-4 h-4' />
         </div>
       </div>
       <div
         ref={parentDiv}
         className={combinedClassName}
         style={{
-          msOverflowStyle: "none",
-          scrollbarWidth: "none",
-          overflow: "hidden",
+          msOverflowStyle: 'none',
+          scrollbarWidth: 'none',
+          overflow: 'hidden',
         }}
         {...props}
       >
-        {React.Children.map(children, (child, index) => (
+        {Children.map(children, (child, index) => (
           <div
             key={index}
             id={`slide${index}`}
@@ -154,9 +158,10 @@ const Carousel: React.FC<CarouselProps> = ({
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 };
-Carousel.displayName = "Carousel";
+
+Carousel.displayName = 'Carousel';
 
 export { Carousel, carouselVariants, carouselItemVariants };
