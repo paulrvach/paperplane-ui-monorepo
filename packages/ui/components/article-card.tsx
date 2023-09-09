@@ -85,7 +85,7 @@ const Image = forwardRef<HTMLDivElement, ImageProps>(
             href={href}
           >
             <button
-              className="inline-flex items-center justify-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-1  focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-8 rounded-md px-3 text-xs"
+              className="inline-flex items-center justify-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-1  focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow  h-8 rounded-md px-3 text-xs"
               type="button"
             >
               {buttonText}

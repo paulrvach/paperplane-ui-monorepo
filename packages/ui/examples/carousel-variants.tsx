@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Carousel, type CarouselProps } from "../components/carosuel";
-import ExampleCard from "./cards/article-card";
+import ExampleCard from "./cards/article-card-variants";
 import { Radio } from "./controls/controllers";
 import ShowcaseWrapper from "./controls/component-showcase-wrapper";
 
