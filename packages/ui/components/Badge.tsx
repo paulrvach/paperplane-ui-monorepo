@@ -5,30 +5,30 @@ import React, {
   useRef,
   Children,
   type HTMLAttributes,
-} from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons';
-import gsap from 'gsap';
-import { cn } from '../utils';
+} from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { ChevronDownIcon, ChevronUpIcon } from "@radix-ui/react-icons";
+import gsap from "gsap";
+import { cn } from "../utils";
 
 const badgeVariants = cva(
-  'inline-flex items-center px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 cursor-pointer',
+  "inline-flex items-center px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 cursor-pointer",
   {
     variants: {
       variant: {
         default:
-          'border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80 rounded-md',
+          "border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80 rounded-md",
         secondary:
-          'border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-md',
+          "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-md",
         destructive:
-          'border-transparent bg-destructive text-destructive-foreground shadow hover:bg-destructive/80 rounded-md',
-        outline: 'text-foreground rounded-md border-2',
+          "border-transparent bg-destructive text-destructive-foreground shadow hover:bg-destructive/80 rounded-md",
+        outline: "text-foreground rounded-md border-2",
         round:
-          'bg-primary text-primary-foreground rounded-full hover:bg-primary/80',
+          "bg-primary text-primary-foreground rounded-full hover:bg-primary/80",
       },
     },
     defaultVariants: {
-      variant: 'default',
+      variant: "default",
     },
   }
 );
@@ -51,7 +51,7 @@ const Badge = forwardRef<HTMLDivElement, BadgeProps>(
   }
 );
 
-Badge.displayName = 'Badge';
+Badge.displayName = "Badge";
 
 export interface BadgesProps extends HTMLAttributes<HTMLDivElement> {
   length: number;
@@ -63,8 +63,7 @@ const Badges = forwardRef<HTMLDivElement, BadgesProps>(
     const [opened, setOpened] = useState(false);
     const [shortened, setShortened] = useState<React.ReactNode[]>([]);
     const elements = useRef<HTMLDivElement[]>([]);
-    const isFullLength: boolean =
-      shortened.length === Children.toArray(children).length;
+    const isFullLength: boolean = length === Children.toArray(children).length;
     const showLess: boolean = shortened.length <= length;
 
     const handleShowMore = (): void => {
@@ -79,6 +78,7 @@ const Badges = forwardRef<HTMLDivElement, BadgesProps>(
       } else {
         setShortened(reactNodeArray);
       }
+      setOpened(false)
     };
 
     useEffect(() => {
@@ -105,25 +105,25 @@ const Badges = forwardRef<HTMLDivElement, BadgesProps>(
         elements.current.slice(length).forEach((element) => {
           animations.from(element, {
             opacity: 0,
-            y: '+=15',
-            ease: 'circ',
+            y: "+=15",
+            ease: "circ",
           });
         });
       };
       if (opened) {
         animateChildren();
       }
-    }, [opened, length, stagger]);
+    }, [opened]);
 
     return (
       <div
         {...props}
-        className={cn('flex gap-1 flex-wrap', className)}
+        className={cn("flex gap-1 flex-wrap", className)}
         ref={ref}
       >
         {shortened.map((node, index) => (
           <div
-            key={node?.toLocaleString()}
+            key={index}
             ref={(el): void => (elements.current[index] = el as never)}
           >
             {node}
@@ -131,17 +131,18 @@ const Badges = forwardRef<HTMLDivElement, BadgesProps>(
         ))}
         {isFullLength ? null : (
           <Badge
-            className='relative group'
-            onClick={showLess ? handleShowLess : handleShowMore}
-            variant='outline'
+            className="relative group pointer-events-auto"
+            onClick={showLess ? handleShowMore : handleShowLess}
+            variant="outline"
           >
-            {showLess ? (
+            {!showLess ? (
               <>
-                Show Less <ChevronUpIcon className='w-4 h-4 inline transform group-hover:rotate-180 transition duration-300' />
+                Show Less{" "}
+                <ChevronUpIcon className="w-4 h-4 inline transform group-hover:rotate-180 transition duration-300" />
               </>
             ) : (
               <>
-                Show More <ChevronDownIcon className='w-4 h-4 inline ' />
+                Show More <ChevronDownIcon className="w-4 h-4 inline " />
               </>
             )}
           </Badge>
@@ -151,6 +152,6 @@ const Badges = forwardRef<HTMLDivElement, BadgesProps>(
   }
 );
 
-Badges.displayName = 'Badges';
+Badges.displayName = "Badges";
 
 export { Badge, Badges, badgeVariants };

@@ -118,13 +118,13 @@ function Carousel({
     }, elements);
 
     return () => ctx.revert();
-  }, []);
+  }, [scrub]);
 
   return (
     <div>
       <div className="flex h-fit gap-2 justify-end align-middle ">
         <button
-          className="border-2 border-border cursor-pointer rounded-full flex items-center justify-center p-1"
+          className="border-2 border-border cursor-pointer rounded-full flex items-center justify-center p-1 hover:bg-primary/25"
           onClick={handlePreviousClick}
           onKeyDown={handlePreviousClick}
           type="button"
@@ -132,7 +132,7 @@ function Carousel({
           <ArrowLeftIcon className="w-4 h-4" />
         </button>
         <button
-          className="border-2 border-border cursor-pointer rounded-full flex items-center justify-center p-1"
+          className="border-2 border-border cursor-pointer rounded-full flex items-center justify-center p-1 hover:bg-primary/25"
           onClick={handleNextClick}
           onKeyDown={handleNextClick}
           type="button"

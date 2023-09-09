@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Carousel, type CarouselProps } from "../components/carosuel";
 import ExampleCard from "./cards/article-card";
 import { Radio } from "./controls/controllers";
@@ -11,7 +11,7 @@ function CardShowcaseVariants(): JSX.Element {
   return (
     <ShowcaseWrapper className="flex-col gap-8 justify-between">
       <ShowcaseWrapper.Component className="">
-        <Carousel cardWidth={width} className="p-4" align={align} scrub={false}>
+        <Carousel align={align} cardWidth={width} className="p-4" scrub={false}>
           <ExampleCard />
           <ExampleCard />
           <ExampleCard />
@@ -25,14 +25,16 @@ function CardShowcaseVariants(): JSX.Element {
           defaultValue={width as never}
           direction="row"
           items={["sm", "md", "lg"]}
-          onValueChange={(val) => setWidth(val as never)}
+          onValueChange={(val: "sm" | "md" | "lg"): void => setWidth(val)}
           propName="Card Width"
         />
         <Radio
           defaultValue={align as never}
           direction="row"
           items={["start", "center", "end"]}
-          onValueChange={(val) => setAlign(val as never)}
+          onValueChange={(val: "start" | "center" | "end"): void =>
+            setAlign(val)
+          }
           propName="Alignment"
         />
       </ShowcaseWrapper.Controllers>

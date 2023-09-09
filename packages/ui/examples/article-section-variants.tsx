@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef} from "react";
+import { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { Heading, Text } from "@radix-ui/themes";
 import Article from "../components/article-section";

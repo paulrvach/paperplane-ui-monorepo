@@ -1,11 +1,11 @@
-import React from "react";
-import { Badge, BadgeProps } from "../components/badge";
+import { useState } from "react";
+import type { BadgeProps } from "../components/badge";
+import { Badge } from "../components/badge";
 import { Selector } from "./controls/controllers";
 import ShowcaseWrapper from "./controls/component-showcase-wrapper";
 
-const BadgeVariants = () => {
-  const [variant, setVariant] =
-    React.useState<BadgeProps["variant"]>("outline");
+function BadgeVariants(): JSX.Element {
+  const [variant, setVariant] = useState<BadgeProps["variant"]>("outline");
   return (
     <ShowcaseWrapper>
       <ShowcaseWrapper.Component>
@@ -13,8 +13,11 @@ const BadgeVariants = () => {
       </ShowcaseWrapper.Component>
       <ShowcaseWrapper.Controllers>
         <Selector
-          propName="Variant"
+          onValueChange={(
+            val: "default" | "secondary" | "destructive" | "outline" | "round"
+          ): void => setVariant(val)}
           placeholder={variant as never}
+          propName="Variant"
           propTypes={[
             "default",
             "secondary",
@@ -22,11 +25,10 @@ const BadgeVariants = () => {
             "outline",
             "round",
           ]}
-          onValueChange={(val) => setVariant(val as never)}
         />
       </ShowcaseWrapper.Controllers>
     </ShowcaseWrapper>
   );
-};
+}
 
 export default BadgeVariants;

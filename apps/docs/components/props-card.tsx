@@ -7,7 +7,7 @@ interface PropsCardProps {
   type: string;
 };
 
-const propsCard: React.FC<PropsCardProps> = ({ name, description, type }) => {
+function PropsCard ({ name, description, type }: PropsCardProps): JSX.Element {
   return (
     <>
       <div className="flex flex-col md:flex-row py-4 gap-4 md:gap-0">
@@ -24,4 +24,4 @@ const propsCard: React.FC<PropsCardProps> = ({ name, description, type }) => {
   );
 };
 
-export default propsCard;
+export default PropsCard;

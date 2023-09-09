@@ -30,8 +30,8 @@ function Selector({
       <Select.Content>
         <Select.Group>
           <Select.Label>{propName}</Select.Label>
-          {propTypes.map((type, index) => (
-            <Select.Item value={type.toString()} key={index}>
+          {propTypes.map((type) => (
+            <Select.Item key={type.toString()} value={type.toString()}>
               {type}
             </Select.Item>
           ))}

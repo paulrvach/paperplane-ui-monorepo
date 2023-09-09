@@ -1,5 +1,5 @@
-import { VariantProps, cva } from "class-variance-authority";
-import { cn } from "../utils";
+import { type VariantProps, cva } from "class-variance-authority";
+// import { cn } from "../utils";
 
 const toolTipVariants = cva({});
 
@@ -9,8 +9,8 @@ export interface ToolTipProps
   // href?: string;
 }
 
-const Tooltip = (props: ToolTipProps) => {
-  return <div>Tooltip</div>;
-};
+function Tooltip({...props}: ToolTipProps): JSX.Element {
+  return <div {...props}>Tooltip</div>;
+}
 
 export { Tooltip, toolTipVariants };
