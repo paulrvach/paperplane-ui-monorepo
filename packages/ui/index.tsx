@@ -9,3 +9,4 @@ export * from "./components/social-media-button";
 export * from "./components/toast";
 export * from "./components/toaster";
 export * from "./components/tooltip";
+export * from "./components/page-transition"

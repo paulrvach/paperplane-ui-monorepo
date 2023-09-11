@@ -126,5 +126,6 @@ ArticleCard.Tags = Tags;
 ArticleCard.Title = Title;
 ArticleCard.Description = Description;
 ArticleCard.Image = Image;
-
 export default ArticleCard;
+export { Description, Image, Tags, Title };
+export type { ArticleCardType, ImageProps };
