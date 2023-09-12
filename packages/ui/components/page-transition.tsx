@@ -1,4 +1,10 @@
-import { useLayoutEffect, useEffect, useRef, type HTMLAttributes } from "react";
+import {
+  useLayoutEffect,
+  useEffect,
+  useRef,
+  useState,
+  type HTMLAttributes,
+} from "react";
 import gsap from "gsap";
 import { cn } from "../utils";
 
@@ -81,30 +87,27 @@ function PageTransition({
         stagger: stagger,
         ease: ease,
         delay: delay,
-        onComplete: () => {
-          gsap.to(refs.current, {opacity: 0})
-        }
       });
     }, refs.current);
 
     return () => ctx.revert();
-  });
+  }, [stagger, ease, delay, trajectory, direction]);
 
   useEffect(() => {
-    trigger ? tl.current?.play() : null;
+    trigger ? tl.current?.play() : tl.current?.reverse();
   }, [trigger]);
 
   return (
     <div
       className={cn(
-        "w-screen h-screen flex justify-evenly overflow-hidden",
+        "w-full h-full flex justify-evenly overflow-hidden",
         direction === "x" ? "flex-col" : "flex-row"
       )}
     >
       {resArray.map((item, index) => (
         <div
           key={index}
-          className={cn("w-screen h-full bg-neutral-900", className)}
+          className={cn("w-full h-full bg-primary", className)}
           ref={(ele): void => {
             refs.current[index] = ele;
           }}
@@ -121,3 +124,4 @@ function PageTransition({
 }
 
 export { PageTransition };
+export type { PageLoaderProps };

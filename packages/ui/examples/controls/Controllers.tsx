@@ -7,42 +7,50 @@ import {
   type RadioGroupRoot,
   Flex,
   Text,
+  Button,
 } from "@radix-ui/themes";
 import { cn } from "../../utils";
+import { PlayIcon } from "@radix-ui/react-icons";
 
 interface SelectorProps extends ComponentProps<typeof SelectRoot> {
   propName: string;
   propTypes: string[] | number[];
   placeholder?: string;
+  direction?: "column" | "row" | "row-reverse" | "column-reverse";
+  className?: string
 }
 
 function Selector({
   propName,
   propTypes,
+  direction,
   onValueChange,
   placeholder,
   ...props
 }: SelectorProps): JSX.Element {
   return (
-    <Select.Root onValueChange={onValueChange} {...props}>
-      <Text>{propName}</Text>
-      <Select.Trigger placeholder={placeholder} />
-      <Select.Content>
-        <Select.Group>
-          <Select.Label>{propName}</Select.Label>
-          {propTypes.map((type) => (
-            <Select.Item key={type.toString()} value={type.toString()}>
-              {type}
-            </Select.Item>
-          ))}
-        </Select.Group>
-      </Select.Content>
+    <Select.Root onValueChange={onValueChange} >
+      <Flex direction={direction} gap="2"  {...props}>
+        <Text>{propName}</Text>
+        <Select.Trigger placeholder={placeholder} />
+        <Select.Content>
+          <Select.Group>
+            <Select.Label>{propName}</Select.Label>
+            {propTypes.map((type) => (
+              <Select.Item key={type.toString()} value={type.toString()}>
+                {type}
+              </Select.Item>
+            ))}
+          </Select.Group>
+        </Select.Content>
+      </Flex>
     </Select.Root>
   );
 }
 
 interface SliderProps extends ComponentProps<typeof RadixSlider> {
   propName: string;
+  direction?: "column" | "row" | "row-reverse" | "column-reverse";
 }
 
 function Slider({
@@ -53,13 +61,13 @@ function Slider({
   highContrast,
   radius,
   className,
+  direction,
   propName,
   defaultValue,
 }: SliderProps): JSX.Element {
   return (
-    <>
+    <Flex direction={direction} gap="2" className={cn(className)}>
       <Text>{propName}</Text>
-      <div className={cn(className)}>
         <RadixSlider
           color={color}
           defaultValue={defaultValue ? defaultValue : [50]}
@@ -69,8 +77,7 @@ function Slider({
           size={size ? size : "1"}
           variant={variant}
         />
-      </div>
-    </>
+    </Flex>
   );
 }
 
@@ -111,4 +118,26 @@ function Radio({
   );
 }
 
-export { Selector, Slider, Radio };
+interface TriggerProps extends ComponentProps<typeof Button> {
+  propName: string;
+  direction?: "column" | "row" | "row-reverse" | "column-reverse";
+}
+
+function Trigger({
+  onClick,
+  className,
+  propName,
+  direction = "column",
+  ...props
+}: TriggerProps) {
+  return (
+    <Flex direction={direction} gap="2" className={className}>
+      <Text>{propName}</Text>
+      <Button onClick={onClick} {...props} size={"2"}>
+        <PlayIcon className="w-3 h-3" /> Play
+      </Button>
+    </Flex>
+  );
+}
+
+export { Selector, Slider, Radio, Trigger };

@@ -13,6 +13,7 @@ function BadgeVariants(): JSX.Element {
       </ShowcaseWrapper.Component>
       <ShowcaseWrapper.Controllers>
         <Selector
+          direction="column"
           onValueChange={(
             val: "default" | "secondary" | "destructive" | "outline" | "round"
           ): void => setVariant(val)}

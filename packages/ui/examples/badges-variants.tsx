@@ -85,11 +85,13 @@ function ColoredBadges(): JSX.Element {
           }}
           placeholder={stagger?.toString()}
           propName="Stagger"
+          direction="column"
         />
         <Selector
           onValueChange={(value): void => setLength(Number.parseFloat(value))}
           placeholder={length.toString()}
           propName="Length"
+          direction="column"
           propTypes={[2, 4, 6, 8]}
         />
       </ShowcaseWrapper.Controllers>

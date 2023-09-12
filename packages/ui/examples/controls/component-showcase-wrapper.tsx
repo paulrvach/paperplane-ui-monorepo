@@ -25,7 +25,7 @@ function Controllers({
   ...props
 }: HTMLAttributes<HTMLDivElement>): JSX.Element {
   return (
-    <div className={cn("flex flex-col gap-4 w-[256px]", className)} {...props}>
+    <div className={cn("flex flex-col gap-6 w-[256px]", className)} {...props}>
       {children}
     </div>
   );

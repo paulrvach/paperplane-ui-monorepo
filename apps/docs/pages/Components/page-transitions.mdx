@@ -1,0 +1,71 @@
+import React, { useState } from "react";
+import { Steps } from "nextra/components";
+import { Tabs, Code } from "@radix-ui/themes";
+import PropsCard from "../../components/props-card.tsx";
+import CodeMinimizer from "ui/examples/controls/code-minimizer";
+import {PageTransitionVariant, PageTransitionChildrenVariant} from "ui/examples/page-transition-variants.tsx";
+import * as AspectRatio from "@radix-ui/react-aspect-ratio";
+
+# Page Transition
+
+The <Code>PageTransition</Code> component is a versatile React element that enables customizable and animated transitions between pages or content, featuring options for resolution, animation direction, and triggering based on user interactions. It seamlessly enhances the user experience by providing visually appealing transitions for single-page applications.
+
+<div className="w-full h-8" />
+
+## Components
+
+### PageTransition
+
+<Tabs.Root defaultValue="preview">
+  <Tabs.List>
+    <Tabs.Trigger value="preview">Preview</Tabs.Trigger>
+    <Tabs.Trigger value="code">Code</Tabs.Trigger>
+  </Tabs.List>
+  <div className="w-full h-full" >
+    <Tabs.Content value="preview" className="w-full  h-[512px]">
+      <PageTransitionVariant />
+    </Tabs.Content>
+    <Tabs.Content value="code">
+      ```jsx copy
+      <PageTransition
+        direction={"y"}
+        ease={"none"}
+        resolution={16}
+        stagger={0.1}
+        trajectory={"default"}
+        trigger={false}
+      />     
+
+      ````
+    </Tabs.Content>
+  </div>
+</Tabs.Root>
+
+<div className="w-full h-8" />
+
+### PageTransition <p className="text-sm font-normal inline-block">*(with Children)*</p>
+
+<Tabs.Root defaultValue="preview">
+  <Tabs.List>
+    <Tabs.Trigger value="preview">Preview</Tabs.Trigger>
+    <Tabs.Trigger value="code">Code</Tabs.Trigger>
+  </Tabs.List>
+  <div className="w-full h-full" >
+    <Tabs.Content value="preview" className="w-full  h-[512px]">
+      <PageTransitionChildrenVariant />
+    </Tabs.Content>
+    <Tabs.Content value="code">
+      ```jsx copy
+      <PageTransition
+        direction={"y"}
+        ease={"none"}
+        resolution={16}
+        stagger={0.1}
+        trajectory={"default"}
+        trigger={false}
+      />     
+
+      ````
+    </Tabs.Content>
+  </div>
+</Tabs.Root>
