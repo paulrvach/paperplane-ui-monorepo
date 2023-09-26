@@ -1,23 +1,19 @@
-import React, { useState } from 'react';
-import { ArrowTopRightIcon } from '@radix-ui/react-icons';
-import { Tabs } from '@radix-ui/themes'
-import { Badge, Badges } from 'ui';
-import PropsCard from '../../components/props-card.tsx';
-import { ColoredBadges } from 'ui/examples/badges-variants';
-import BadgeVariants from 'ui/examples/badge-variants';
-import  CodeMinimizer from 'ui/examples/controls/code-minimizer'
-import { Steps } from 'nextra/components'
+import React, { useState } from "react";
+import { ArrowTopRightIcon } from "@radix-ui/react-icons";
+import { Tabs } from "@radix-ui/themes";
+import { Badge, Badges, CodeMinimizer, BadgeVariants, ColoredBadges } from "ui";
+import PropsCard from "../../components/props-card.tsx";
+import { Steps } from "nextra/components";
 
 # Badge
 
 Badge component inspired by [shadcn/ui<ArrowTopRightIcon className='inline'/>](https://ui.shadcn.com/docs/components/badge) with dynamic Badges wrapper component.
 
-<div className='w-full h-8' />
+<div className="w-full h-8" />
 
 ## Components
 
 ### Badge
-
 
 <Tabs.Root defaultValue="preview">
   <Tabs.List>
@@ -30,7 +26,7 @@ Badge component inspired by [shadcn/ui<ArrowTopRightIcon className='inline'/>](h
     </Tabs.Content>
 
     <Tabs.Content value="code">
-      ```jsx copy 
+      ```jsx copy
         <Badge variant='default' children={'default'} />
         <Badge variant='secondary' children={'secondary'} />
         <Badge variant='destructive' children={'destructive'} />
@@ -39,11 +35,10 @@ Badge component inspired by [shadcn/ui<ArrowTopRightIcon className='inline'/>](h
       ````
     </Tabs.Content>
     </div>
+
 </Tabs.Root>
 
-
-
-<div className="w-full h-8"/>
+<div className="w-full h-8" />
 
 ### Badges
 
@@ -118,41 +113,37 @@ Badge component inspired by [shadcn/ui<ArrowTopRightIcon className='inline'/>](h
     ````
     </Tabs.Content>
     </div>
+
 </Tabs.Root>
 
-
-<div className='w-full h-8' />
-
-
+<div className="w-full h-8" />
 
 ## API Reference
 
 ### Badge
 
 <PropsCard
-  name='variant'
-  description='Style of the individual badge.'
+  name="variant"
+  description="Style of the individual badge."
   type='"default" | "secondary" | "destructive" | "outline" | "round"'
 />
-
 
 ### Badges
 
 <PropsCard
-  name='length'
-  description='Represents the amount of badges displayed before they get truncated'
-  type='number'
+  name="length"
+  description="Represents the amount of badges displayed before they get truncated"
+  type="number"
 />
 <PropsCard
-  name='stagger'
-  description='Animation delay between each component.'
-  type='number'
+  name="stagger"
+  description="Animation delay between each component."
+  type="number"
 />
 
-<div className='w-full h-8' />
+<div className="w-full h-8" />
 
 ## Installation
-
 
 <Tabs.Root defaultValue="Manual">
   <Tabs.List>
@@ -171,10 +162,10 @@ Badge component inspired by [shadcn/ui<ArrowTopRightIcon className='inline'/>](h
         npm install gsap
         ```
 
-				### Step 2
-				 
-				Copy and paste code into your project
-        
+    			### Step 2
+
+    			Copy and paste code into your project
+
        <CodeMinimizer>
 
         ```tsx copy
@@ -303,41 +294,38 @@ Badge component inspired by [shadcn/ui<ArrowTopRightIcon className='inline'/>](h
           }
         );
 
-        export { Badge, Badges, badgeVariants };  
+        export { Badge, Badges, badgeVariants };
 
         ```
 
         </CodeMinimizer>
 
-				### Step 3
+    			### Step 3
 
-				Update imports
+    			Update imports
 
-				</Steps>
+    			</Steps>
     </Tabs.Content>
 
     <Tabs.Content value="CLI">
       <p>Under Construction</p>
     </Tabs.Content>
+
   </div>
 </Tabs.Root>
 
 ## Usage
 
-```tsx copy 
-import { Badge, Badges} from "@paperplane-ui"
+```tsx copy
+import { Badge, Badges } from "@paperplane-ui";
 ```
 
 ```tsx copy
-   <Badges stagger={0.3} length={4} className="w-[256px]">
-    <Badge children="badge"/>
-    <Badge children="badge"/>
-    <Badge children="badge"/>
-    <Badge children="badge"/>
-    <Badge children="badge"/>
-  </Badges>
+<Badges stagger={0.3} length={4} className="w-[256px]">
+  <Badge children="badge" />
+  <Badge children="badge" />
+  <Badge children="badge" />
+  <Badge children="badge" />
+  <Badge children="badge" />
+</Badges>
 ```
-
-
-
-

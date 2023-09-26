@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
-import { Steps } from 'nextra/components'
-import { Tabs } from '@radix-ui/themes'
-import PropsCard from '../../components/props-card.tsx';
-import  CodeMinimizer from 'ui/examples/controls/code-minimizer'
-import { ArticleSectionVariants } from 'ui/examples';
+import React, { useState } from "react";
+import { Steps } from "nextra/components";
+import { Tabs } from "@radix-ui/themes";
+import PropsCard from "../../components/props-card.tsx";
+import { ArticleSectionVariants, CodeMinimizer } from "ui";
 
 # Article Section
 
 Preconfigured heading and description section for articles.
 
 ## Components
-
 
 <Tabs.Root defaultValue="preview">
   <Tabs.List>
@@ -19,18 +17,16 @@ Preconfigured heading and description section for articles.
   </Tabs.List>
   <div className="px-4 pt-3 pb-2">
     <Tabs.Content value="preview">
-        <ArticleSectionVariants />
-      
+      <ArticleSectionVariants />
     </Tabs.Content>
 
     <Tabs.Content value="code">
-      ```jsx copy 
+      ```jsx copy
       import { useLayoutEffect, useRef } from "react";
       import Article from "../components/ArticleSection";
       import ShowcaseWrapper from "./controls/ComponentShowcaseWrapper";
       import { Heading, Text } from "@radix-ui/themes";
       import { gsap } from "gsap";
-
 
       const ArticleSectionVariants = () => {
         const title = useRef(null);
@@ -148,58 +144,56 @@ Preconfigured heading and description section for articles.
       };
 
       export { ArticleSectionVariants };
+      ```
 
-      ````
     </Tabs.Content>
-    </div>
+  </div>
 </Tabs.Root>
 
-<div className='w-full h-8' />
+<div className="w-full h-8" />
 
 ## API Reference
 
-### Article <p className="text-sm font-normal inline-block">*(component wrapper)*</p>
+### Article <p className="text-sm font-normal inline-block">_(component wrapper)_</p>
 
 <PropsCard
-  name='ref'
-  description='Forwared Ref Attribute'
-  type='React.ForwardedRef<HTMLDivElement>'
+  name="ref"
+  description="Forwarded Ref Attribute"
+  type="React.ForwardedRef<HTMLDivElement>"
 />
 
 ### Article.Header
 
 <PropsCard
-  name='children'
-  description='Children are added above Title and Date.'
-  type='ReactNode'
+  name="children"
+  description="Children are added above Title and Date."
+  type="ReactNode"
 />
 <PropsCard
-  name='Title'
-  description='Use this prop to add the title of the article.'
-  type='stirng'
+  name="Title"
+  description="Use this prop to add the title of the article."
+  type="string"
 />
 <PropsCard
-  name='Date'
-  description='Use this prop to add the date of the article.'
-  type='string'
+  name="Date"
+  description="Use this prop to add the date of the article."
+  type="string"
 />
 
 ### Article.Description
 
 <PropsCard
-  name='description'
-  description='This prop is used for a paragraph description with word wrap.'
-  type='string'
+  name="description"
+  description="This prop is used for a paragraph description with word wrap."
+  type="string"
 />
 <PropsCard
-  name='children'
-  description='Children are saved in a responsive grid pattern. '
-  type='ReactNode(s)'
+  name="children"
+  description="Children are saved in a responsive grid pattern."
+  type="ReactNode(s)"
 />
 
-
-
-<div className='w-full h-8' />
+<div className="w-full h-8" />
 
 ## Installation
 
@@ -212,135 +206,134 @@ Preconfigured heading and description section for articles.
   <div className="px-4 pt-3 pb-2">
     <Tabs.Content value="Manual">
       <Steps>
-				### Step 1
-				 
-				Copy and paste code into your project
+        ### Step 1
 
-				<CodeMinimizer>
-				```tsx copy
-                import React from "react";
-                import { cn } from "../utils";
+        Copy and paste code into your project
 
-                export interface HeaderProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
-                  title: string;
-                  date: string;
-                }
+        <CodeMinimizer>
+        ```tsx copy
+        import React from "react";
+        import { cn } from "../utils";
 
-                const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
-                  (
-                    {
-                      title = "Title Section",
-                      date = "March 15, 2023",
-                      className,
-                      children,
-                      ...props
-                    },
-                    ref
-                  ) => {
-                    return (
-                      <div
-                        ref={ref}
-                        className={cn(
-                          "flex flex-col justify-start gap-4 whitespace-nowrap w-full",
-                          className
-                        )}
-                        {...props}
-                      >
-                        {children}
-                        <h1 className="text-xl md:text-4xl leading-6 font-bold mt-0 mb-4 ">
-                          {title}
-                        </h1>
-                        <strong className="pb-4">{date}</strong>
-                      </div>
-                    );
-                  }
-                );
-                Header.displayName = "ArticleHeader";
+        export interface HeaderProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
+          title: string;
+          date: string;
+        }
 
-                export interface DescriptionProps
-                  extends React.HtmlHTMLAttributes<HTMLDivElement> {
-                  description: string;
-                }
+        const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
+          (
+            {
+              title = "Title Section",
+              date = "March 15, 2023",
+              className,
+              children,
+              ...props
+            },
+            ref
+          ) => {
+            return (
+              <div
+                ref={ref}
+                className={cn(
+                  "flex flex-col justify-start gap-4 whitespace-nowrap w-full",
+                  className
+                )}
+                {...props}
+              >
+                {children}
+                <h1 className="text-xl md:text-4xl leading-6 font-bold mt-0 mb-4 ">
+                  {title}
+                </h1>
+                <strong className="pb-4">{date}</strong>
+              </div>
+            );
+          }
+        );
+        Header.displayName = "ArticleHeader";
 
-                const Description = React.forwardRef<HTMLDivElement, DescriptionProps>(
-                  ({ className, description, children, ...props }, ref) => {
-                    return (
-                      <div
-                        ref={ref}
-                        {...props}
-                        className={cn(
-                          "flex flex-col gap-4 lg:grid lg:grid-flow-col w-full",
-                          className
-                        )}
-                      >
-                        <div className="">{description}</div>
-                        <div className="flex flex-col sm:flex-row sm:flex-wrap lg:grid lg:grid-cols-2 gap-6 lg:col-span-1">
-                          {children}
-                        </div>
-                      </div>
-                    );
-                  }
-                );
-                Description.displayName = "Description";
+        export interface DescriptionProps
+          extends React.HtmlHTMLAttributes<HTMLDivElement> {
+          description: string;
+        }
 
-                interface ArticleProps extends React.HTMLAttributes<HTMLDivElement> {}
+        const Description = React.forwardRef<HTMLDivElement, DescriptionProps>(
+          ({ className, description, children, ...props }, ref) => {
+            return (
+              <div
+                ref={ref}
+                {...props}
+                className={cn(
+                  "flex flex-col gap-4 lg:grid lg:grid-flow-col w-full",
+                  className
+                )}
+              >
+                <div className="">{description}</div>
+                <div className="flex flex-col sm:flex-row sm:flex-wrap lg:grid lg:grid-cols-2 gap-6 lg:col-span-1">
+                  {children}
+                </div>
+              </div>
+            );
+          }
+        );
+        Description.displayName = "Description";
 
-                interface ArticleType
-                  extends React.ForwardRefExoticComponent<
-                    ArticleProps & React.RefAttributes<HTMLDivElement>
-                  > {
-                  Header: typeof Header;
-                  Description: typeof Description;
-                }
+        interface ArticleProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-                const Article = React.forwardRef<HTMLDivElement, ArticleProps>(
-                  ({ className, ...props }, ref) => {
-                    return (
-                      <div
-                        className={cn(
-                          "text-primary flex flex-col gap-4 items-start my-24 w-full",
-                          className
-                        )}
-                        {...props}
-                        ref={ref}
-                      />
-                    );
-                  }
-                ) as ArticleType;
+        interface ArticleType
+          extends React.ForwardRefExoticComponent<
+            ArticleProps & React.RefAttributes<HTMLDivElement>
+          > {
+          Header: typeof Header;
+          Description: typeof Description;
+        }
 
-                Article.displayName = "Article";
-                Article.Header = Header;
-                Article.Description = Description;
+        const Article = React.forwardRef<HTMLDivElement, ArticleProps>(
+          ({ className, ...props }, ref) => {
+            return (
+              <div
+                className={cn(
+                  "text-primary flex flex-col gap-4 items-start my-24 w-full",
+                  className
+                )}
+                {...props}
+                ref={ref}
+              />
+            );
+          }
+        ) as ArticleType;
 
-                export default Article;
+        Article.displayName = "Article";
+        Article.Header = Header;
+        Article.Description = Description;
 
-				
-				```
-				</CodeMinimizer>
+        export default Article;
+        ```
 
-				### Step 2
+        </CodeMinimizer>
 
-				Update `imports`
+        ### Step 2
 
-				</Steps>
+        Update `imports`
+
+      </Steps>
     </Tabs.Content>
 
     <Tabs.Content value="CLI">
       <p>Under Construction</p>
     </Tabs.Content>
+
   </div>
 </Tabs.Root>
 
 ## Usage
 
 ```tsx
-import { Article } from "@paperplane-ui"
+import { Article } from "@paperplane-ui";
 ```
 
 ```tsx
 <Article>
-  <Article.Header date="" title="">
-  </Article.Header>
+  <Article.Header date="" title=""></Article.Header>
   <Article.Description description="">
     <div></div>
     <div></div>

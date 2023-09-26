@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Carousel, type CarouselProps } from "../components/carosuel";
-import ExampleCard from "./cards/article-card-variants";
+import { Carousel, type CarouselProps } from "@ui";
+import { ExampleCard } from "./cards/article-card-variants";
 import { Radio } from "./controls/controllers";
-import ShowcaseWrapper from "./controls/component-showcase-wrapper";
+import { ShowcaseWrapper } from "@controls";
 
 function CardShowcaseVariants(): JSX.Element {
   const [width, setWidth] = useState<CarouselProps["cardWidth"]>("lg");
@@ -42,4 +42,4 @@ function CardShowcaseVariants(): JSX.Element {
   );
 }
 
-export default CardShowcaseVariants;
+export { CardShowcaseVariants };

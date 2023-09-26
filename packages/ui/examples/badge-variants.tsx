@@ -1,8 +1,8 @@
 import { useState } from "react";
 import type { BadgeProps } from "../components/badge";
-import { Badge } from "../components/badge";
+import { Badge } from "@ui";
 import { Selector } from "./controls/controllers";
-import ShowcaseWrapper from "./controls/component-showcase-wrapper";
+import { ShowcaseWrapper } from "@controls";
 
 function BadgeVariants(): JSX.Element {
   const [variant, setVariant] = useState<BadgeProps["variant"]>("outline");
@@ -32,4 +32,4 @@ function BadgeVariants(): JSX.Element {
   );
 }
 
-export default BadgeVariants;
+export { BadgeVariants };

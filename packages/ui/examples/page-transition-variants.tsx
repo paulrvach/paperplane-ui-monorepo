@@ -1,10 +1,10 @@
 import { useRef, useState, useLayoutEffect, useEffect } from "react";
-import ShowcaseWrapper from "./controls/component-showcase-wrapper";
+import { ShowcaseWrapper } from "@controls";
 import {
   PageTransition,
   type PageLoaderProps,
-} from "../components/page-transition";
-import { Trigger, Selector, Radio, Slider } from "./controls/controllers";
+} from "@ui";
+import { Trigger, Selector, Radio, Slider } from "@controls";
 import gsap from "gsap";
 
 type Props = {};

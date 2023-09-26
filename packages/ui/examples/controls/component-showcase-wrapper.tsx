@@ -51,4 +51,4 @@ ShowcaseWrapper.displayName = "ShowcaseWrapper";
 ShowcaseWrapper.Component = Component;
 ShowcaseWrapper.Controllers = Controllers;
 
-export default ShowcaseWrapper;
+export { ShowcaseWrapper };

@@ -1,8 +1,4 @@
-import {
-  useState,
-  useRef,
-  type HTMLAttributes,
-} from "react";
+import { useState, useRef, type HTMLAttributes } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { Button } from "@radix-ui/themes";
 import clsx from "clsx";
@@ -65,4 +61,4 @@ function CodeMinimizer({
   );
 }
 
-export default CodeMinimizer;
+export { CodeMinimizer };

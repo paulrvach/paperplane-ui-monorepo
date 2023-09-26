@@ -10,3 +10,5 @@ export * from "./components/toast";
 export * from "./components/toaster";
 export * from "./components/tooltip";
 export * from "./components/page-transition"
+export * from "./examples"
+export * from "./utils"

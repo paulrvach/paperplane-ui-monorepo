@@ -1,8 +1,8 @@
 import { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { Heading, Text } from "@radix-ui/themes";
-import Article from "../components/article-section";
-import ShowcaseWrapper from "./controls/component-showcase-wrapper";
+import { Article } from "@ui";
+import { ShowcaseWrapper } from "@controls";
 
 function ArticleSectionVariants(): JSX.Element {
   const title = useRef(null);

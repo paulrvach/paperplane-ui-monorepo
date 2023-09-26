@@ -1,5 +1,4 @@
-import { Badge } from "../../components/badge";
-import ArticleCard from "../../components/article-card";
+import { Badge, ArticleCard } from "@ui";
 
 function ExampleCard(): JSX.Element {
   return (
@@ -21,4 +20,4 @@ function ExampleCard(): JSX.Element {
   );
 }
 
-export default ExampleCard;
+export { ExampleCard };

@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { Steps } from "nextra/components";
 import { Tabs } from "@radix-ui/themes";
 import PropsCard from "../../../components/props-card.tsx";
-import CodeMinimizer from "ui/examples/controls/code-minimizer";
-import ExampleCard from "ui/examples/cards/article-card-variants";
+import { CodeMinimizer, ExampleCard } from "ui";
 
 # Card
 
@@ -114,7 +113,15 @@ The Card component is a versatile React component designed to create customizabl
 />
 <PropsCard
   name="asChild"
-  description={ <span>Either pass image attributes as a props pass as child component. Go to <a href="https://www.radix-ui.com/primitives/docs/utilities/slot">Radix Docs</a> for more details</span>}
+  description={
+    <span>
+      Either pass image attributes as a props pass as child component. Go to{" "}
+      <a href="https://www.radix-ui.com/primitives/docs/utilities/slot">
+        Radix Docs
+      </a>{" "}
+      for more details
+    </span>
+  }
   type="boolean"
 />
 
@@ -133,17 +140,17 @@ The Card component is a versatile React component designed to create customizabl
       <Steps>
 				### Step 1
 				 
-				Install dependiencies 
+				Install dependiencies
 
-				```bash copy
-				npm install @radix-ui/react-slot
-				```
-				 
-				### Step 2
-				 
-				Copy and paste code into your project
-				<CodeMinimizer>
-				```tsx copy
+    			```bash copy
+    			npm install @radix-ui/react-slot
+    			```
+
+    			### Step 2
+
+    			Copy and paste code into your project
+    			<CodeMinimizer>
+    			```tsx copy
                 import { cn } from "../utils";
                 import { Slot } from '@radix-ui/react-slot';
 
@@ -257,37 +264,37 @@ The Card component is a versatile React component designed to create customizabl
                 ArticleCard.Image = Image;
 
                 export default ArticleCard;
-				
-				```
-				</CodeMinimizer>
 
-				### Step 3
+    			```
+    			</CodeMinimizer>
 
-				Update `tailwind.config.js`
+    			### Step 3
 
-				</Steps>
+    			Update `tailwind.config.js`
+
+    			</Steps>
     </Tabs.Content>
 
     <Tabs.Content value="CLI">
       <p>Under Construction</p>
     </Tabs.Content>
+
   </div>
 </Tabs.Root>
 
 ## Usage
 
 ```tsx
-import { ArticleCard } from "@paperplane-ui"
+import { ArticleCard } from "@paperplane-ui";
 ```
 
 ```tsx
-    <ArticleCard >
-      <ArticleCard.Image asChild>
-        <img />
-      </ArticleCard.Image>
-      <ArticleCard.Tags>
-      </ArticleCard.Tags>
-      <ArticleCard.Title children="Article Title" />
-      <ArticleCard.Description children="Article Description" />
-    </ArticleCard>
+<ArticleCard>
+  <ArticleCard.Image asChild>
+    <img />
+  </ArticleCard.Image>
+  <ArticleCard.Tags></ArticleCard.Tags>
+  <ArticleCard.Title children="Article Title" />
+  <ArticleCard.Description children="Article Description" />
+</ArticleCard>
 ```

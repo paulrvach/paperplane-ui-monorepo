@@ -1,8 +1,8 @@
 import { useState } from "react";
 import type { BadgesProps } from "../components/badge";
-import { Badge, Badges } from "../components/badge";
+import { Badge, Badges } from "@ui";
 import { Selector, Slider } from "./controls/controllers";
-import ShowcaseWrapper from "./controls/component-showcase-wrapper";
+import { ShowcaseWrapper } from "@controls";
 
 function ColoredBadges(): JSX.Element {
   const [stagger, setStagger] = useState<BadgesProps["stagger"]>(0.4);
