@@ -1,8 +1,6 @@
 import { useState } from "react";
-import type { BadgeProps } from "../components/badge";
-import { Badge } from "@ui";
-import { Selector } from "./controls/controllers";
-import { ShowcaseWrapper } from "@controls";
+import { Badge, type BadgeProps } from "@ui";
+import { ShowcaseWrapper, Selector } from "@controls";
 
 function BadgeVariants(): JSX.Element {
   const [variant, setVariant] = useState<BadgeProps["variant"]>("outline");
